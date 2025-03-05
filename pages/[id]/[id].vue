@@ -49,24 +49,29 @@ watch(post, (newPost) => {
     body.value = md.render(newPost.body);
 })
 
+const seo = ref({})
+
 const fetch = async () => {
     try {
-        // включаем loader
         index.loader = true;
-
-        const res = await $fetch(`http://localhost:1337/api/posts?filters[slug][$eqi]=${id}&populate=*`)
-        post.value = res.data[0]
+        const res = await $fetch(`http://localhost:1337/api/posts?filters[slug][$eqi]=${id}&populate=*`);
+        post.value = res.data[0];
         if (post.value) {
-            updateViews(post.value.documentId)
+            updateViews(post.value.documentId);
+            seo.value = res.data[0].seo;
+            useSeoMeta({
+              title: seo.value.metaTitle,
+              description: seo.value.metaDescription,
+              ogTitle: seo.value.metaTitle,
+              ogDescription: seo.value.metaDescription,
+            });
         }
-
     } catch (error) {
         console.log(error);
     } finally {
-        // выключаем loader
         index.loader = false;
     }
-}
+};
 
 const updateViews = async (id) => {
     await $fetch(`http://localhost:1337/api/posts/${id}`, {
