@@ -30,8 +30,6 @@ function convertDatetime(isoDatetime) {
     const day = String(date.getUTCDate()).padStart(2, '0');
     const month = months[date.getUTCMonth()];
     const year = date.getUTCFullYear();
-    const hours = String(date.getUTCHours()).padStart(2, '0');
-    const minutes = String(date.getUTCMinutes()).padStart(2, '0');
 
     // Форматируем строку
     return `${day} ${month} ${year}`;
