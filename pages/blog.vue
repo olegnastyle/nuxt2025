@@ -42,19 +42,34 @@ const fetch = async () => {
     }
 }
 
-onMounted(() => fetch())
 
-useHead({
-  title: 'Блог | Секреты Шефа',
-  bodyAttrs: {
-    class: 'bg-white dark:bg-gray-900'
-  },
-})
+// получаем мета данные
+const seo = ref({});
+const fetchSeo = async () => {
+  try {
+    index.loader = true;
+    const res = await $fetch(`http://localhost:1337/api/blog?populate=*`);
+    if (res.data.seo) {
+      seo.value = res.data.seo;
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    index.loader = false;
+  }
+};
 
 useSeoMeta({
-  title: 'Блог | Секреты Шефа',
-  ogTitle: 'Блог | Секреты Шефа',
-  description: 'Предлагаем простые и вкусные рецепты, советы по выбору ингредиентов и идеи для сервировки',
-  ogDescription: 'Предлагаем простые и вкусные рецепты, советы по выбору ингредиентов и идеи для сервировки',
+  title: () => seo.value.metaTitle,
+  description: () => seo.value.metaDescription,
+  ogTitle: () => seo.value.metaTitle,
+  ogDescription: () => seo.value.metaDescription,
+  ogImage: () => seo.value
+})
+
+
+onMounted(() => {
+    fetchSeo()
+    fetch()
 })
 </script>
