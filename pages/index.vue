@@ -5,15 +5,23 @@
 <script setup>
 const index = useIndexStore();
 
-const seo = ref({});
+const seo = ref({})
 const fetchSeo = async () => {
   try {
     index.loader = true;
-
     const res = await $fetch(`http://localhost:1337/api/global?populate=*`);
+
     if (res.data.seo) {
-      seo.value = res.data.seo;
+       seo.value = res.data.seo;
     }
+
+    useHead({
+        title: `${seo.value.metaTitle} | Секреты Шефа`,
+        meta: [
+            { name: 'description', content: seo.value.metaDescription }
+        ],
+    })
+    
   } catch (error) {
     console.log(error);
   } finally {
@@ -21,13 +29,5 @@ const fetchSeo = async () => {
   }
 };
 
-useSeoMeta({
-  title: () => seo.value.metaTitle,
-  description: () => seo.value.metaDescription,
-  ogTitle: () => seo.value.metaTitle,
-  ogDescription: () => seo.value.metaDescription,
-  ogImage: () => seo.value
-})
-
-onMounted(() => fetchSeo());
+onMounted(() => fetchSeo())
 </script>

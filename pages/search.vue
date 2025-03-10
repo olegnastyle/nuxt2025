@@ -44,7 +44,38 @@ const fetch = async (search) => {
 
 watch( () => index.search, (search) =>{
     fetch(search)
+
+    useHead({
+        title: `${search} | Секреты Шефа`,
+    })
 });
 
-onMounted(() => fetch())
+// получаем мета данные
+const seo = ref({})
+const fetchSeo = async () => {
+  try {
+    index.loader = true;
+    const res = await $fetch(`http://localhost:1337/api/seatrch?populate=*`);
+
+    if (res.data.seo) {
+       seo.value = res.data.seo;
+    }
+
+    useHead({
+        meta: [
+            { name: 'description', content: seo.value.metaDescription }
+        ],
+    })
+    
+  } catch (error) {
+    console.log(error);
+  } finally {
+    index.loader = false;
+  }
+};
+
+onMounted(() => {
+    fetchSeo()
+    fetch()
+})
 </script>

@@ -58,7 +58,7 @@ const fetch = async () => {
             updateViews(post.value.documentId);
             seo.value = res.data[0].seo;
             useSeoMeta({
-              title: seo.value.metaTitle,
+              title: `${seo.value.metaTitle} | Секреты Шефа`,
               description: seo.value.metaDescription,
               ogTitle: seo.value.metaTitle,
               ogDescription: seo.value.metaDescription,

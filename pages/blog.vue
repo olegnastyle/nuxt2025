@@ -67,6 +67,9 @@ useSeoMeta({
   ogImage: () => seo.value
 })
 
+// watch( () => {
+
+// })
 
 onMounted(() => {
     fetchSeo()
