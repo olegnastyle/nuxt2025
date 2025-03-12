@@ -12,30 +12,24 @@
 
 <script setup>
 const index = useIndexStore();
+const seo = ref({});
 
-const seo = ref({})
-const fetchSeo = async () => {
-  try {
-    index.loader = true;
-    const res = await $fetch(`http://localhost:1337/api/contact?populate=*`);
+// Загружаем данные с SSR
+const { data } = await useAsyncData('seo', () => 
+  $fetch('http://localhost:1337/api/contact?populate=*'),
+  { server: true }
+);
 
-    if (res.data.seo) {
-       seo.value = res.data.seo;
-    }
+// Заполняем seo после загрузки
+if (data.value?.data?.seo) {
+  seo.value = data.value.data.seo;
+}
 
-    useHead({
-        title: `${seo.value.metaTitle} | Секреты Шефа`,
-        meta: [
-            { name: 'description', content: seo.value.metaDescription }
-        ],
-    })
-    
-  } catch (error) {
-    console.log(error);
-  } finally {
-    index.loader = false;
-  }
-};
-
-onMounted(() => fetchSeo())
+// Используем useHead после загрузки данных
+useHead({
+  title: () => seo.value?.metaTitle ? `${seo.value.metaTitle} | Секреты Шефа` : 'Секреты Шефа',
+  meta: [
+    { name: 'description', content: () => seo.value?.metaDescription || '' }
+  ],
+});
 </script>
