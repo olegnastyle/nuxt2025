@@ -1,14 +1,14 @@
 <template>
     <div class="max-w-3xl mx-auto text-black dark:text-white">
-            <div v-if="post.cover"
-                :style="'background-image: url(http://localhost:1337' + post.cover.url + ')'"
+            <!-- <div v-if="post.cover"
+                :style="'background-image: url(https://908bd2082661.vps.myjino.ru' + post.cover.url + ')'"
                 class="h-80 bg-auto bg-top bg-fixed bg-no-repeat rounded-4xl"
             >
-            </div>
+            </div> -->
         <h1 class="text-4xl font-medium my-2">{{ post.title }}</h1>
         <p v-if="post" class="opacity-50 my-1.5">
             <span>{{ post.body ? calculateReadingTime(post.body) : 0 }}</span> •
-            <span v-html="post.view || 0"></span>
+            <span v-html="post.views || 0"></span>
             прочитано • {{ convertDatetime(post.publishedAt) }}</p>
         <div class="markdown my-1.5" v-html="body"></div>
     </div>
@@ -52,7 +52,7 @@ const seo = ref({})
 const fetch = async () => {
     try {
         index.loader = true;
-        const res = await $fetch(`http://localhost:1337/api/posts?filters[slug][$eqi]=${id}&populate=*`);
+        const res = await $fetch(`https://908bd2082661.vps.myjino.ru/api/posts?filters[slug][$eqi]=${id}&populate=*`);
         post.value = res.data[0];
         if (post.value) {
             updateViews(post.value.documentId);
@@ -71,15 +71,19 @@ const fetch = async () => {
     }
 };
 
-const updateViews = async (id) => {
-    await $fetch(`http://localhost:1337/api/posts/${id}`, {
-        method: 'PUT',
-        body: {
-            data: {
-                view: (post.value.view || 0) + 1,
+const updateViews = async (documentId) => {
+    try {
+        await $fetch(`https://908bd2082661.vps.myjino.ru/api/posts/${documentId}`, {
+            method: 'PUT',
+            body: {
+                data: {
+                    views: (post.value.views || 0) + 1,
+                },
             },
-        },
-    });
+        });
+    } catch (error) {
+        console.error('Ошибка при обновлении просмотров:', error);
+    }
 };
 
 function calculateReadingTime(text, wordsPerMinute = 200) {

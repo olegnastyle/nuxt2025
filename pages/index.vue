@@ -11,14 +11,14 @@
       <article v-for="(post, index) in posts" :key="post.id" :class="index === 0 ? 'row-span-2 *:*:h-80 *:*:w-3xs' : ''"
         class="hover:scale-105 transition-transform">
         <NuxtLink :to="`/${post.category?.slug}/${post.slug}`">
-          <img class="object-cover rounded-3xl" :src="'http://localhost:1337'+post.cover.url" :alt="post.cover.alternativeText">
+          <img class="object-cover rounded-3xl" :src="'https://908bd2082661.vps.myjino.ru'+post.cover.url" :alt="post.cover.alternativeText">
         </NuxtLink>
       </article>
     </div>
   </section>
 
   <!-- второй блок -->
-  <section class="text-black dark:text-white">
+  <section v-if="block2" class="text-black dark:text-white">
     <h2 class="my-1.5 text-3xl font-medium uppercase">Популярные статьи</h2>
     <nav class="my-3">
       <ul class="flex gap-4">
@@ -51,7 +51,7 @@ const fetch = async () => {
         // включаем loader
         index.loader = true;
 
-        const res = await $fetch('http://localhost:1337/api/posts?populate=*')
+        const res = await $fetch('https://908bd2082661.vps.myjino.ru/api/posts?populate=*')
 
         return posts.value = res.data
     } catch (error) {
@@ -62,17 +62,19 @@ const fetch = async () => {
     }
 }
 const block1 = ref('')
+const block2 = ref('')
 const seo = ref({})
 const fetchSeo = async () => {
   try {
     index.loader = true;
-    const res = await $fetch(`http://localhost:1337/api/global?populate=*`);
+    const res = await $fetch(`https://908bd2082661.vps.myjino.ru/api/global?populate=*`);
 
     if (res.data.seo) {
        seo.value = res.data.seo;
     }
 
     block1.value = res.data.block1
+    block2.value = res.data.block2
 
     useHead({
         title: `${seo.value.metaTitle} | Секреты Шефа`,
