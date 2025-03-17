@@ -66,7 +66,7 @@
 }
 
 .markdown thead th {
-  @apply px-4 py-2 font-medium;
+  @apply px-4 py-2 font-medium overflow-x-scroll;
 }
 
 .markdown tbody {
@@ -74,5 +74,5 @@
 }
 
 .markdown tbody td {
-  @apply px-4 py-2 text-gray-300;
+  @apply px-4 py-2 text-gray-300 overflow-x-scroll;
 }
