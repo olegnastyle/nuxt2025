@@ -1,10 +1,9 @@
 <template>
     <div class="max-w-3xl mx-auto text-black dark:text-white">
-            <!-- <div v-if="post.cover"
-                :style="'background-image: url(https://908bd2082661.vps.myjino.ru' + post.cover.url + ')'"
-                class="h-80 bg-auto bg-top bg-fixed bg-no-repeat rounded-4xl"
-            >
-            </div> -->
+        <!-- <div v-if="post.cover"
+            :style="'background-image: url(https://908bd2082661.vps.myjino.ru' + post.cover.url + ')'"
+            class="h-80 bg-auto bg-top bg-fixed bg-no-repeat rounded-4xl"
+        ></div> -->
         <h1 class="text-4xl font-medium my-2">{{ post.title }}</h1>
         <p v-if="post" class="opacity-50 my-1.5">
             <span>{{ post.body ? calculateReadingTime(post.body) : 0 }}</span> •
