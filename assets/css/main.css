@@ -42,7 +42,7 @@
 }
 
 .markdown pre {
-  @apply inline-flex w-full;
+  @apply flex w-full bg-[#32324d] dark:bg-[#393956] cursor-pointer;
 }
 
 .markdown code {
