@@ -49,8 +49,16 @@
   @apply my-1.5 p-2 text-sm bg-[#32324d] cursor-pointer overflow-x-scroll rounded-sm text-nowrap;
 }
 
+.markdown {
+  @apply w-full max-w-full; /* Ограничиваем ширину контейнера */
+}
+
+.markdown .table-wrapper {
+  @apply overflow-x-auto; /* Добавляем горизонтальную прокрутку */
+}
+
 .markdown table {
-  @apply w-full text-sm text-left border-collapse min-w-max;
+  @apply w-full table-fixed text-sm text-left border-collapse min-w-max; /* Таблица занимает всю доступную ширину */
 }
 
 .markdown thead {
@@ -67,8 +75,4 @@
 
 .markdown tbody td {
   @apply px-4 py-2 text-gray-300;
-}
-
-.markdown .table-wrapper {
-  @apply overflow-x-auto;
 }
