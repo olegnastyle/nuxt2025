@@ -1,6 +1,6 @@
 <template>
   <!-- первый блок -->
-  <section v-if="block1" class="flex flex-col lg:flex-row items-center gap-24">
+  <section v-if="block1" class="flex flex-col lg:flex-row items-center gap-12 md:gap-24">
     <!-- левая сторона -->
     <div class="flex flex-col gap-4 text-black dark:text-white">
       <h1 class="text-3xl md:text-5xl font-medium uppercase">Самый <span class="text-blue-700 text-4xl md:text-6xl font-bold ">космические</span> рецепты от Шефа</h1>
