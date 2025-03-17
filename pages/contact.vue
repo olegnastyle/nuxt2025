@@ -27,7 +27,7 @@ if (data.value?.data?.seo) {
 
 // Используем useHead после загрузки данных
 useHead({
-  title: () => seo.value?.metaTitle ? `${seo.value.metaTitle} | Секреты Шефа` : 'Секреты Шефа',
+  title: () => seo.value?.metaTitle ? `${seo.value.metaTitle} | PlusPixel` : 'PlusPixel',
   meta: [
     { name: 'description', content: () => seo.value?.metaDescription || '' }
   ],

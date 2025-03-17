@@ -30,7 +30,7 @@
 }
 
 .markdown p {
-  @apply text-base py-1.5  text-balance 
+  @apply text-base py-1.5 text-balance 
 }
 
 .markdown ul {

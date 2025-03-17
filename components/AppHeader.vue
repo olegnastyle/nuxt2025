@@ -4,7 +4,7 @@
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <NuxtLink to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="~/public/favicon.ico" class="h-8" alt="Flowbite Logo" />
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Секреты Шефа</span>
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">PlusPixel</span>
                 </NuxtLink>
                 <div class="flex md:order-2">
                     <button @click="menuOpen = !menuOpen" type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">

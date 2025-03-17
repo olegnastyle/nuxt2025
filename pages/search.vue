@@ -46,7 +46,7 @@ watch( () => index.search, (search) =>{
     fetch(search)
 
     useHead({
-        title: `${search} | Секреты Шефа`,
+        title: `${search} | PlusPixel`,
     })
 });
 

@@ -77,7 +77,7 @@ const fetchSeo = async () => {
     block2.value = res.data.block2
 
     useHead({
-        title: `${seo.value.metaTitle} | Секреты Шефа`,
+        title: `${seo.value.metaTitle} | PlusPixel`,
         meta: [
             { name: 'description', content: seo.value.metaDescription }
         ],
