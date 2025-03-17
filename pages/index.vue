@@ -4,7 +4,7 @@
     <!-- левая сторона -->
     <div class="flex flex-col gap-4 text-black dark:text-white">
       <h1 class="text-3xl md:text-5xl font-medium uppercase">Самый <span class="text-blue-700 text-4xl md:text-6xl font-bold ">космические</span> рецепты от Шефа</h1>
-      <p class="text-2xl">Вдохновляйтесь кулинарными шедеврами от профессионального шеф-повара и создавайте настоящие кулинарные произведения искусства на своей кухне!</p>
+      <p class="text-lg md:text-2xl">Вдохновляйтесь кулинарными шедеврами от профессионального шеф-повара и создавайте настоящие кулинарные произведения искусства на своей кухне!</p>
     </div>
     <!-- правая сторона -->
     <div class="grid grid-cols-2 grid-rows-2 items-center gap-8">
