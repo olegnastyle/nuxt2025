@@ -18,7 +18,7 @@
 }
 
 .markdown h1 {
-  @apply text-4xl  font-medium py-1.5;
+  @apply text-4xl font-medium py-1.5;
 }
 
 .markdown h2 {
@@ -46,7 +46,7 @@
 }
 
 .markdown code {
-  @apply my-1.5 p-2 text-sm bg-[#32324d] cursor-pointer overflow-x-scroll rounded-sm text-nowrap;
+  @apply inline-flex my-1.5 p-2 text-sm bg-[#32324d] cursor-pointer overflow-x-scroll rounded-sm text-nowrap;
 }
 
 .markdown table {
