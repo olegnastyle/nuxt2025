@@ -89,12 +89,17 @@ onMounted(() => fetch());
 
 // Функция для копирования текста в буфер обмена
 const copyToClipboard = async (text, event) => {
-  try {
-      await navigator.clipboard.writeText(text);
-      showCopiedNotification(event);
-  } catch (error) {
-      console.error('Не удалось скопировать текст:', error);
-  }
+    if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+        console.error('Clipboard API не поддерживается в текущей среде');
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(text);
+        showCopiedNotification(event);
+    } catch (error) {
+        console.error('Не удалось скопировать текст:', error);
+    }
 };
 
 // Функция для показа уведомления "Скопировано"
