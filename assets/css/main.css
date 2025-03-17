@@ -42,5 +42,5 @@
 }
 
 .markdown code {
-  @apply inline-flex w-max my-1.5 p-2 text-sm bg-[#32324d] cursor-pointer overflow-x-scroll rounded-sm
+  @apply inline-flex w-full my-1.5 p-2 text-sm bg-[#32324d] cursor-pointer overflow-x-scroll rounded-sm
 }
