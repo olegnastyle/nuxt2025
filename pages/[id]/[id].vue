@@ -10,7 +10,7 @@
             <span>{{ post.body ? calculateReadingTime(post.body) : 0 }}</span> •
             <span v-html="post.views || 0"></span>
             прочитано • {{ convertDatetime(post.publishedAt) }}</p>
-        <div class="markdown my-1.5" v-html="body"></div>
+        <div class="markdown my-1.5" v-html="body" ref="markdownContainer"></div>
     </div>
 </template>
 
@@ -105,4 +105,79 @@ function calculateReadingTime(text, wordsPerMinute = 200) {
 
 
 onMounted(() => fetch())
+
+
+// для тег <code>
+// Функция для копирования текста в буфер обмена
+const copyToClipboard = async (text, event) => {
+  try {
+    await navigator.clipboard.writeText(text); // Копируем текст
+    showCopiedNotification(event); // Показываем уведомление рядом с местом клика
+  } catch (error) {
+    console.error('Не удалось скопировать текст:', error);
+  }
+};
+
+// Функция для показа уведомления "Скопировано"
+const showCopiedNotification = (event) => {
+  const notification = document.createElement('span');
+  notification.textContent = 'Скопировано';
+  notification.className =
+    'absolute bg-green-500 text-white text-xs px-2 py-1 rounded-md shadow-md pointer-events-none';
+
+  // Получаем координаты клика относительно viewport
+  const rect = event.target.getBoundingClientRect();
+  notification.style.top = `${rect.top + window.scrollY}px`;
+  notification.style.left = `${rect.right + window.scrollX + 8}px`;
+
+  // Добавляем уведомление в body
+  document.body.appendChild(notification);
+
+  // Удаляем уведомление через 3 секунды
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+};
+
+// Обработчик кликов на уровне документа
+const handleDocumentClick = (event) => {
+  if (event.target.tagName === 'CODE') {
+    const codeText = event.target.textContent;
+    copyToClipboard(codeText, event);
+  }
+};
+
+// Отслеживание изменений DOM с помощью MutationObserver
+let observer;
+onMounted(() => {
+  // Добавляем обработчик кликов на уровне документа
+  document.addEventListener('click', handleDocumentClick);
+
+  // Инициализируем MutationObserver для отслеживания динамических изменений
+  observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node.nodeType === Node.ELEMENT_NODE && node.querySelector('code')) {
+          console.log('Новый тег <code> обнаружен');
+        }
+      });
+    });
+  });
+
+  // Начинаем наблюдать за контейнером body
+  if (body.value) {
+    observer.observe(body.value, {
+      childList: true,
+      subtree: true,
+    });
+  }
+});
+
+onUnmounted(() => {
+  // Удаляем обработчик кликов и останавливаем MutationObserver
+  document.removeEventListener('click', handleDocumentClick);
+  if (observer) {
+    observer.disconnect();
+  }
+});
 </script>

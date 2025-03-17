@@ -40,3 +40,7 @@
 .markdown ol {
   @apply list-decimal my-1.5 pl-6;
 }
+
+.markdown code {
+  @apply inline-flex w-max my-1.5 p-2 text-sm bg-[#32324d] cursor-pointer overflow-auto rounded-sm
+}
