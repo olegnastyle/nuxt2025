@@ -46,5 +46,5 @@
 }
 
 .markdown code {
-  @apply my-1.5 p-2 text-sm bg-[#32324d] cursor-pointer overflow-x-scroll rounded-sm
+  @apply my-1.5 p-2 text-sm bg-[#32324d] whitespace-pre-wrap cursor-pointer overflow-x-scroll rounded-sm
 }
