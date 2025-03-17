@@ -8,7 +8,7 @@
     </div>
     <!-- правая сторона -->
     <div class="grid grid-cols-2 grid-rows-2 items-center gap-8">
-      <article v-for="(post, index) in posts" :key="post.id" :class="index === 0 ? 'row-span-2 *:*:h-40 md:*:*:h-80 *:*:w-3xs' : ''"
+      <article v-for="(post, index) in posts" :key="post.id" :class="index === 0 ? 'row-span-2 *:*:h-60 md:*:*:h-80 *:*:w-3xs' : ''"
         class="hover:scale-105 transition-transform">
         <NuxtLink :to="`/${post.category?.slug}/${post.slug}`">
           <img class="object-cover rounded-3xl" :src="'https://908bd2082661.vps.myjino.ru'+post.cover.url" :alt="post.cover.alternativeText">
