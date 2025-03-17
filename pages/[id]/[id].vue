@@ -122,7 +122,7 @@ const showCopiedNotification = (event) => {
   const notification = document.createElement('span');
   notification.textContent = 'Скопировано';
   notification.className =
-    'absolute bg-green-500 text-white text-xs px-2 py-1 rounded-md shadow-md pointer-events-none';
+    'absolute bg-blue-500 text-white text-xs px-2 py-1 rounded-md shadow-md pointer-events-none';
 
   // Получаем координаты клика относительно viewport
   const rect = event.target.getBoundingClientRect();
@@ -135,7 +135,7 @@ const showCopiedNotification = (event) => {
   // Удаляем уведомление через 3 секунды
   setTimeout(() => {
     notification.remove();
-  }, 3000);
+  }, 1000);
 };
 
 // Обработчик кликов на уровне документа
