@@ -46,11 +46,11 @@
 }
 
 .markdown code {
-  @apply inline-flex my-1.5 p-2 text-sm bg-[#32324d] cursor-pointer overflow-x-scroll rounded-sm text-nowrap;
+  @apply inline-flex my-1.5 p-2 text-sm bg-[#32324d] text-white dark:bg-[#393956] cursor-pointer overflow-x-scroll md:overflow-auto rounded-sm text-nowrap;
 }
 
 .markdown table {
-  @apply w-full table-fixed text-sm text-left border-collapse min-w-max; /* Таблица занимает всю доступную ширину */
+  @apply w-full table-fixed text-sm text-left border-collapse min-w-max;
 }
 
 .markdown thead {
