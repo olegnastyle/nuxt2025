@@ -23,7 +23,7 @@
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" /></svg>
                     </button>
                 </div>
-                <div :class="{'flex': !menuOpen}, {'hidden': menuOpen}"
+                <div :class="{'flex': menuOpen}, {'hidden': !menuOpen}"
                     class="items-center justify-between w-full flex-col md:flex md:w-auto md:order-1 transition-transform"
                     id="navbar-search">
                     <div class="relative w-full mt-3 md:hidden">
