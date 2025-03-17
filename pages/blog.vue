@@ -7,7 +7,7 @@
             </NuxtLink>
             <div class="inline-flex flex-col gap-3.5 p-5">
                 <NuxtLink :to="`/${post.category?.slug}/${post.slug}`">
-                    <h5 class="min-h-24 text-lg md:text-2xl font-bold tracking-tight text-gray-900
+                    <h5 class="min-h-20 md:min-h-24 text-lg md:text-2xl font-bold tracking-tight text-gray-900
                         line-clamp-3 overflow-hidden text-ellipsis whitespace-normal
                         dark:text-white">{{ post.title }}</h5>
                 </NuxtLink>
