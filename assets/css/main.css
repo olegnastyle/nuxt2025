@@ -14,23 +14,23 @@
 
 .page-enter-from,
 .page-leave-to {
-  @apply  blur-lg translate-y-full
+  @apply  blur-lg translate-y-full;
 }
 
 .markdown h1 {
-  @apply text-4xl  font-medium py-1.5
+  @apply text-4xl  font-medium py-1.5;
 }
 
 .markdown h2 {
-  @apply text-3xl font-medium py-1.5
+  @apply text-3xl font-medium py-1.5;
 }
 
 .markdown h3 {
-  @apply text-2xl font-medium py-1.5
+  @apply text-2xl font-medium py-1.5;
 }
 
 .markdown p {
-  @apply text-base py-1.5 text-balance 
+  @apply text-base py-1.5 text-balance;
 }
 
 .markdown ul {
@@ -42,9 +42,33 @@
 }
 
 .markdown pre {
-  @apply inline-flex w-full
+  @apply inline-flex w-full;
 }
 
 .markdown code {
-  @apply my-1.5 p-2 text-sm bg-[#32324d] cursor-pointer overflow-x-scroll rounded-sm text-nowrap
+  @apply my-1.5 p-2 text-sm bg-[#32324d] cursor-pointer overflow-x-scroll rounded-sm text-nowrap;
+}
+
+.markdown table {
+  @apply w-full text-sm text-left border-collapse min-w-max;
+}
+
+.markdown thead {
+  @apply bg-gray-800 text-white;
+}
+
+.markdown thead th {
+  @apply px-4 py-2 font-medium;
+}
+
+.markdown tbody {
+  @apply bg-gray-950 divide-y divide-gray-700;
+}
+
+.markdown tbody td {
+  @apply px-4 py-2 text-gray-300;
+}
+
+.markdown .table-wrapper {
+  @apply overflow-x-auto;
 }
