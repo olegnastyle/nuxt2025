@@ -22,11 +22,11 @@
                     </NuxtLink>
 
                     <!-- вложенное выпадающее меню -->
-                    <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0" class="absolute top-1 left-30 z-50 hidden p-1 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-600">
-                        
+                    <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0"
+                        class="absolute top-1 left-35 z-50 hidden p-1 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-500">
                         <ul class="p-1 text-sm w-full text-gray-700 dark:text-gray-200">
                             <li v-for="subcategory in category.subcategories" :key="subcategory.id">
-                                <NuxtLink href="#" class="flex items-center px-4 py-2 text-nowrap rounded hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white">
+                                <NuxtLink href="#" class="flex items-center px-4 py-2 text-nowrap rounded hover:bg-gray-100 dark:hover:bg-gray-400 dark:hover:text-white">
                                     {{ subcategory.name }}
                                 </NuxtLink>
                             </li>
