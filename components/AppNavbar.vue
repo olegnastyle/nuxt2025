@@ -42,6 +42,10 @@
             <!-- переключатель темы -->
             <UiDarkToggle />
         </li>
+        <li>
+            <!-- профиль -->
+             <UiProfile />
+        </li>
 
     </ul>
 </template>
