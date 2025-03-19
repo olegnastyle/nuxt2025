@@ -12,11 +12,26 @@
             
             <!-- выпадающее меню -->
             <div v-if="Array.isArray(nav.categories) && nav.categories.length > 0" class="absolute top-6 z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm  dark:bg-gray-700 dark:divide-gray-600">
-                <ul class="p-2 text-sm text-gray-700 dark:text-gray-200">
-                  <li v-for="category in nav.categories" :key="category.id">
-                    <NuxtLink :to="'/'+category.slug" class="block px-4 py-2 text-nowrap rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                <ul class="p-1 text-sm text-gray-700 dark:text-gray-200">
+                  <li v-for="category in nav.categories" :key="category.id" class="relative hover:*:flex">
+                    <NuxtLink :to="'/'+category.slug" class="flex items-center px-4 py-2 text-nowrap rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                         {{ category.name }}
+                        <svg v-if="category.slug == 'dlya-detej'" class="w-2.5 h-2.5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                        </svg>
                     </NuxtLink>
+
+                    <!-- вложенное выпадающее меню -->
+                    <div v-if="true" class="absolute top-1 left-30 z-50 hidden p-1 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-600">
+                        <ul class="p-1 text-sm w-full text-gray-700 dark:text-gray-200">
+                            <li>
+                                <NuxtLink href="#" class="flex items-center px-4 py-2 text-nowrap rounded hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white">
+                                    Overview
+                                </NuxtLink>
+                            </li>
+                        </ul>
+                    </div>
+
                   </li>
                 </ul>
             </div>
