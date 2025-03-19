@@ -22,7 +22,7 @@
                     </NuxtLink>
 
                     <!-- вложенное выпадающее меню -->
-                    <div v-if="true" class="absolute top-1 left-30 z-50 hidden p-1 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-600">
+                    <div v-if="category.slug == 'dlya-detej'" class="absolute top-1 left-30 z-50 hidden p-1 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-600">
                         <ul class="p-1 text-sm w-full text-gray-700 dark:text-gray-200">
                             <li>
                                 <NuxtLink href="#" class="flex items-center px-4 py-2 text-nowrap rounded hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white">
@@ -53,7 +53,7 @@ const index = useIndexStore();
 const fetchNavbar = async () => {
     try {
         index.loader = true;
-        const res = await $fetch('https://908bd2082661.vps.myjino.ru/api/navbars?populate=*&sort=sort:asc')
+        const res = await $fetch('https://908bd2082661.vps.myjino.ru/api/navbars?populate[categories][populate][0]=subcategories&sort=sort:asc')
         navbar.value = res.data
     } catch (error) {
         console.log(error);
