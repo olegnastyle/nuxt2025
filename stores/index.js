@@ -5,6 +5,7 @@ export const useIndexStore = defineStore('index', {
     return {
       loader: false,
       search: '',
+      authToggle: true,
     }
   },
 })

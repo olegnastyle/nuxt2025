@@ -35,14 +35,14 @@
         <div v-else>
             <ul class="p-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                 <li>
-                    <a href="#" class="block px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                    <NuxtLink @click="index.authToggle = false" to="/profile" class="block px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                         Войти
-                    </a>
+                    </NuxtLink>
                 </li>
                 <li>
-                    <a href="#"
-                        class="block px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                    Создать аккаунт</a>
+                    <NuxtLink @click="index.authToggle = true" to="/profile" class="block px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        Создать аккаунт
+                    </NuxtLink>
                 </li>
             </ul>
         </div>
@@ -51,4 +51,6 @@
 
 <script setup>
 const profileToggle = ref(false)
+
+const index = useIndexStore();
 </script>
