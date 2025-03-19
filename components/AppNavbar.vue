@@ -16,17 +16,18 @@
                   <li v-for="category in nav.categories" :key="category.id" class="relative hover:*:flex">
                     <NuxtLink :to="'/'+category.slug" class="flex items-center px-4 py-2 text-nowrap rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                         {{ category.name }}
-                        <svg v-if="category.slug == 'dlya-detej'" class="w-2.5 h-2.5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <svg v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0" class="w-2.5 h-2.5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                         </svg>
                     </NuxtLink>
 
                     <!-- вложенное выпадающее меню -->
-                    <div v-if="category.slug == 'dlya-detej'" class="absolute top-1 left-30 z-50 hidden p-1 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-600">
+                    <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0" class="absolute top-1 left-30 z-50 hidden p-1 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-600">
+                        
                         <ul class="p-1 text-sm w-full text-gray-700 dark:text-gray-200">
-                            <li>
+                            <li v-for="subcategory in category.subcategories" :key="subcategory.id">
                                 <NuxtLink href="#" class="flex items-center px-4 py-2 text-nowrap rounded hover:bg-gray-100 dark:hover:bg-gray-500 dark:hover:text-white">
-                                    Overview
+                                    {{ subcategory.name }}
                                 </NuxtLink>
                             </li>
                         </ul>
