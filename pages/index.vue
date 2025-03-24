@@ -1,7 +1,6 @@
 <template>
   <!-- первый блок -->
   <section v-if="block1" class="flex flex-col lg:flex-row items-center gap-12 md:gap-24">
-    
     <!-- левая сторона -->
     <div class="flex flex-col gap-4 text-black dark:text-white">
       <h1 class="text-4xl md:text-5xl font-medium uppercase">Самый <span class="text-blue-700 text-5xl md:text-6xl font-bold ">космические</span> практики для разработчиков</h1>
@@ -10,7 +9,7 @@
 
     <!-- правая сторона -->
     <div class="grid grid-cols-2 grid-rows-2 items-center gap-8">
-      <article v-for="(post, index) in posts" :key="post.id" :class="index === 0 ? 'row-span-2 *:*:h-60 md:*:*:h-80 *:*:w-3xs' : ''"
+      <article v-for="(post, index) in posts.slice(0, 3)" :key="post.id" :class="index === 0 ? 'row-span-2 *:*:h-60 md:*:*:h-80 *:*:w-3xs' : ''"
         class="hover:scale-105 transition-transform">
         <NuxtLink :to="`/${post.category?.slug}/${post.slug}`">
           <img class="object-cover rounded-3xl" :src="'https://908bd2082661.vps.myjino.ru'+post.cover.url" :alt="post.cover.alternativeText">
