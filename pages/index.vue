@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div class="flex flex-col">
     <!-- первый блок -->
     <section v-if="block1" class="flex flex-col lg:flex-row items-center gap-12 md:gap-24"
