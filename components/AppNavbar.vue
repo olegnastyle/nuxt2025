@@ -47,6 +47,18 @@
              <UiProfile />
         </li>
 
+        <!-- <li>
+            <nav class="relative text-2xl text-white">
+            <button class="bg-transparent border-none cursor-pointer transition-all duration-100 hover:underline group focus:outline-none">
+                Блог<span class="inline-block transform rotate-90 transition-transform duration-100">➔</span>
+            </button>
+            <ul class="absolute top-2 left-0 w-44 bg-brown-600 rounded-lg p-1 hidden group-hover:block group-focus:block">
+                <li class="rounded-md p-2 cursor-pointer text-aliceblue transition-colors duration-100 hover:bg-white/20">Для взрослых</li>
+                <li class="rounded-md p-2 cursor-pointer text-aliceblue transition-colors duration-100 hover:bg-white/20">Для детей</li>
+            </ul>
+        </nav>
+        </li> -->
+
     </ul>
 </template>
 

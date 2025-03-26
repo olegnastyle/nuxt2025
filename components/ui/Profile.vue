@@ -1,4 +1,5 @@
 <template>
+    <!-- компонент профиля из навигации -->
     <button @click="profileToggle = !profileToggle" class="cursor-pointer">
         <img v-if="false" id="avatarButton" type="button" class="size-7 rounded-full"
             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"

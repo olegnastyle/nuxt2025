@@ -1,4 +1,5 @@
 <template>
+    <!-- компонент индикатора загрузки -->
     <div class="flex justify-center items-center
             fixed top-0 left-0 z-50 h-screen w-screen
             bg-black/40 backdrop-blur-xs">

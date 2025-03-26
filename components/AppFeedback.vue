@@ -1,4 +1,5 @@
 <template>
+    <!-- компонент формы обратной связи -->
     <form @submit.prevent="submitForm" class="flex flex-col gap-2 max-w-md my-4">
         <div> 
             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ваше имя</label>
