@@ -39,7 +39,7 @@ const seo = ref({});
 const fetch = async () => {
   try {
       index.loader = true;
-      const res = await $fetch(`https://908bd2082661.vps.myjino.ru/api/posts?filters[slug][$eqi]=${id}&populate=*`);
+      const res = await $fetch(`https://static.dublecode.ru/api/posts?filters[slug][$eqi]=${id}&populate=*`);
       post.value = res.data[0];
       if (post.value) {
           updateViews(post.value.documentId);
@@ -60,7 +60,7 @@ const fetch = async () => {
 
 const updateViews = async (documentId) => {
   try {
-      await $fetch(`https://908bd2082661.vps.myjino.ru/api/posts/${documentId}`, {
+      await $fetch(`https://static.dublecode.ru/api/posts/${documentId}`, {
           method: 'PUT',
           body: {
               data: {

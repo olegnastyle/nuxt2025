@@ -17,7 +17,7 @@
           :class="index === 0 ? 'row-span-2 *:*:h-60 md:*:*:h-80 *:*:w-3xs' : ''"
           class="hover:scale-105 transition-transform">
           <NuxtLink :to="`/${post.category?.slug}/${post.slug}`">
-            <img class="object-cover rounded-3xl" :src="'https://908bd2082661.vps.myjino.ru' + post.cover.url"
+            <img class="object-cover rounded-3xl" :src="'https://static.dublecode.ru' + post.cover.url"
               :alt="post.cover.alternativeText">
           </NuxtLink>
         </article>
@@ -122,7 +122,7 @@ const fetch = async () => {
     // включаем loader
     index.loader = true;
 
-    const res = await $fetch('https://908bd2082661.vps.myjino.ru/api/posts?populate=*')
+    const res = await $fetch('https://static.dublecode.ru/api/posts?populate=*')
 
     return posts.value = res.data
   } catch (error) {
@@ -138,7 +138,7 @@ const seo = ref({})
 const fetchSeo = async () => {
   try {
     index.loader = true;
-    const res = await $fetch(`https://908bd2082661.vps.myjino.ru/api/global?populate=*`);
+    const res = await $fetch(`https://static.dublecode.ru/api/global?populate=*`);
 
     if (res.data.seo) {
       seo.value = res.data.seo;

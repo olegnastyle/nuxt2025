@@ -16,7 +16,7 @@ const seo = ref({});
 
 // Загружаем данные с SSR
 const { data } = await useAsyncData('seo', () => 
-  $fetch('https://908bd2082661.vps.myjino.ru/api/contact?populate=*'),
+  $fetch('https://static.dublecode.ru/api/contact?populate=*'),
   { server: true }
 );
 

@@ -45,7 +45,7 @@ const newID = ref(0)
 
 const fetchUsers = async () => {
   try {
-    const response = await $fetch('https://908bd2082661.vps.myjino.ru/api/users?fields=username&sort=username:desc');
+    const response = await $fetch('https://static.dublecode.ru/api/users?fields=username&sort=username:desc');
     const lastUser  = response[0];
 
     if (lastUser  && lastUser.username) {
@@ -64,7 +64,7 @@ const registr = async () => {
     await fetchUsers()
 
     if (newID) {
-      const response = await $fetch(`https://908bd2082661.vps.myjino.ru/api/auth/local/register`, {
+      const response = await $fetch(`https://static.dublecode.ru/api/auth/local/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

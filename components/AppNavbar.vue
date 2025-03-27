@@ -70,7 +70,7 @@ const index = useIndexStore();
 const fetchNavbar = async () => {
     try {
         index.loader = true;
-        const res = await $fetch('https://908bd2082661.vps.myjino.ru/api/navbars?populate[categories][populate][0]=subcategories&sort=sort:asc')
+        const res = await $fetch('https://static.dublecode.ru/api/navbars?populate[categories][populate][0]=subcategories&sort=sort:asc')
         navbar.value = res.data
     } catch (error) {
         console.log(error);

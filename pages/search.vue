@@ -6,7 +6,7 @@
     <div v-if="posts.length > 0" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         <article v-for="post in posts" :key="post.id" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <NuxtLink :to="`/${post.category?.slug}/${post.slug}`">
-                <img class="rounded-t-lg max-h-44 w-full object-cover" :src="'https://908bd2082661.vps.myjino.ru'+post.cover.url" :alt="post.cover.alternativeText" :title="post.cover.caption" />
+                <img class="rounded-t-lg max-h-44 w-full object-cover" :src="'https://static.dublecode.ru'+post.cover.url" :alt="post.cover.alternativeText" :title="post.cover.caption" />
             </NuxtLink>
             <div class="inline-flex flex-col gap-3.5 p-5">
                 <NuxtLink :to="`/${post.category?.slug}/${post.slug}`">
@@ -34,7 +34,7 @@ const posts = ref([])
 
 const fetch = async (search) => {
     try {
-        const res = await $fetch(`https://908bd2082661.vps.myjino.ru/api/posts?filters[$or][0][title][$containsi]=${search}&filters[$or][1][body][$containsi]=${search}&populate=*`)
+        const res = await $fetch(`https://static.dublecode.ru/api/posts?filters[$or][0][title][$containsi]=${search}&filters[$or][1][body][$containsi]=${search}&populate=*`)
 
         return posts.value = res.data
     } catch (error) {
@@ -55,7 +55,7 @@ const seo = ref({})
 const fetchSeo = async () => {
   try {
     index.loader = true;
-    const res = await $fetch(`https://908bd2082661.vps.myjino.ru/api/seatrch?populate=*`);
+    const res = await $fetch(`https://static.dublecode.ru/api/seatrch?populate=*`);
 
     if (res.data.seo) {
        seo.value = res.data.seo;
