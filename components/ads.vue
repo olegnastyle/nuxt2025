@@ -1,6 +1,6 @@
 <template>
     <div v-if="view" class="w-full">
-        <NuxtLink to="https://craftum.com/?id=629285&ref=pluspixel">
+        <NuxtLink to="https://craftum.com/?id=629285&ref=pluspixel" target="_blank">
             <img src="~/public/banner-craftum-dark-lg.png" alt="Craftum" class="object-cover w-full">
         </NuxtLink>
     </div>
