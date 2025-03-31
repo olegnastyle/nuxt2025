@@ -10,7 +10,7 @@
     <!-- выпадающее меню -->
     <div id="userDropdown" v-if="profileToggle"
         class="absolute z-10 p-1 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
-        <div v-if="false">
+        <div v-if="index.userMe.documentId">
             <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                 <div>Олег Нуржанов</div>
                 <div class="font-medium truncate">olegnastyle@yandex.ru</div>
