@@ -12,8 +12,8 @@
         class="absolute z-10 p-1 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
         <div v-if="index.userMe.documentId">
             <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                <div>Олег Нуржанов</div>
-                <div class="font-medium truncate">olegnastyle@yandex.ru</div>
+                <!-- <div>Олег Нуржанов</div> -->
+                <div class="font-medium truncate">{{ index.userMe.email }}</div>
             </div>
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                 <li>
@@ -27,7 +27,7 @@
                 </li>
             </ul>
             <div class="py-1">
-                <a href="#"
+                <a href="#" @click="index.logout"
                     class="block px-4 py-2 rounded text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                     Выйти    
                 </a>
