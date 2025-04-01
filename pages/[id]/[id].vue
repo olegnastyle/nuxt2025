@@ -107,7 +107,7 @@ const showCopiedNotification = (event) => {
   const notification = document.createElement('span');
   notification.textContent = 'Скопировано';
   notification.className =
-      'absolute bg-blue-500 text-white text-xs px-2 py-1 rounded-md shadow-md pointer-events-none';
+      'absolute bg-cyan-500 text-white text-xs px-2 py-1 rounded-md shadow-md pointer-events-none';
 
   const rect = event.target.getBoundingClientRect();
   notification.style.top = `${rect.top + window.scrollY}px`;

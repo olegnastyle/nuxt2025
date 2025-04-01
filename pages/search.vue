@@ -1,5 +1,5 @@
 <template>
-    <h1 class="my-4 text-2xl text-blue-700 darl:blue-500 font-medium">
+    <h1 class="my-4 text-2xl text-cyan-700 darl:blue-500 font-medium">
         Поиск <q>{{ index.search }}</q>
     </h1>
     <!-- все посты по запросу -->
@@ -14,7 +14,7 @@
                         line-clamp-3 overflow-hidden text-ellipsis whitespace-normal
                         dark:text-white">{{ post.title }}</h5>
                 </NuxtLink>
-                <NuxtLink  :to="`/${post.category?.slug}/${post.slug}`" class="inline-flex items-center px-3 py-2 w-max text-sm font-medium text-center text-white bg-[brown]/80 rounded-lg hover:bg-[brown] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <NuxtLink  :to="`/${post.category?.slug}/${post.slug}`" class="inline-flex items-center px-3 py-2 w-max text-sm font-medium text-center text-white bg-[brown]/80 rounded-lg hover:bg-[brown] focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800">
                     Подробнее
                     <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>

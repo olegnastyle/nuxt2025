@@ -6,7 +6,7 @@
       <!-- левая сторона -->
       <div class="flex flex-col gap-4 text-black dark:text-white">
         <h1 class="text-4xl md:text-5xl font-medium uppercase">Самый <span
-            class="text-blue-700 text-5xl md:text-6xl font-bold ">космические</span> практики для разработчиков</h1>
+            class="text-cyan-700 text-5xl md:text-6xl font-bold ">космические</span> практики для разработчиков</h1>
         <p class="text-lg md:text-2xl">Вдохновляйтесь передовыми техниками и решениями от профессионалов индустрии,
           чтобы создавать код, который впечатляет и работает как часы!</p>
       </div>
@@ -66,7 +66,7 @@
           <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
             В нашем блоге вы найдете инструменты для разработчиков: ресурсы, курсы и статьи по веб-разработке. Мы предлагаем актуальные материалы и советы для вашего самообразования и развития навыков
           </p>
-          <a href="#" class="inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-blue-900">
+          <a href="#" class="inline-flex items-center text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-cyan-900">
             Подробнее
             <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
           </a>
@@ -82,7 +82,7 @@
             Limited Time Offer!<br />Up to 50% OFF!</h1>
           <p class="mb-4 max-w-2xl text-gray-500 dark:text-gray-400 md:mb-12 md:text-lg lg:mb-5 lg:text-xl">Don't
             Wait - Limited Stock at Unbeatable Prices!</p>  
-          <a href="#" class="inline-block rounded-lg bg-blue-700 px-6 py-3.5 text-center font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Shop
+          <a href="#" class="inline-block rounded-lg bg-cyan-700 px-6 py-3.5 text-center font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800">Shop
             Now</a>
         </div>
         <div class="hidden md:col-span-5 md:mt-0 md:flex">
