@@ -1,5 +1,7 @@
 <template>
-    <h1 class="my-4 text-2xl text-cyan-700 darl:blue-500 font-medium">Профиль</h1>
+    <h1 class="my-4 text-2xl text-cyan-700 dark:blue-500 font-medium">
+        {{ index.editProfileToggle === false ? 'Редактировать профиль' : 'Профиль' }}
+    </h1>
     <!-- форма авторизации видна если нет documentId -->
     <AppAuth v-if="!index.userMe.documentId" />
     <!-- данные пользователя -->

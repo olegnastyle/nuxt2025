@@ -79,12 +79,15 @@ export const useIndexStore = defineStore('index', {
           }),
         });
 
-        if(response.ok) {
-          const data = await response.json();
-          // обновили данные о пользователе
-          this.userMe = data;
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error('Ошибка от сервера:', errorData);
+          throw new Error('Ошибка при сохранении данных');
         }
-        
+
+        const data = await response.json();
+        // обновили данные о пользователе
+        this.userMe = data;
       } catch (error) {
         console.error(error);
       } finally {
