@@ -10,6 +10,7 @@ export const useIndexStore = defineStore('index', {
     }
   },
   actions: {
+    // получение данных пользователя
     async fetchUserMe() {
       try {
         const token = localStorage.getItem('jwt')
@@ -28,10 +29,12 @@ export const useIndexStore = defineStore('index', {
         console.log(error);
       }
     },
+    // выход из профиля
     logout() {
       localStorage.removeItem('jwt')
       this.userMe = {}
     },
+    // авторизация
     async login(loginData) {
       try {
         console.log(loginData.email);
