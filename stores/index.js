@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { jsx } from 'vue/jsx-runtime'
 
 export const useIndexStore = defineStore('index', {
   state: () => {
@@ -6,7 +7,7 @@ export const useIndexStore = defineStore('index', {
       loader: false, // индикатор загрузки
       search: '', // поисковая строка
       authToggle: true, // переключитель состояния авторизации / регистрации
-      editProfileToggle: false,
+      editProfileToggle: true,
       userMe: {},
     }
   },
@@ -77,8 +78,13 @@ export const useIndexStore = defineStore('index', {
             email: editUserMe.email,
           }),
         });
+
+        if(response.ok) {
+          const data = await response.json();
+          // обновили данные о пользователе
+          this.userMe = data;
+        }
         
-        const data = await response.json();
       } catch (error) {
         console.error(error);
       } finally {
