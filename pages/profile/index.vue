@@ -30,7 +30,7 @@
                 </div>
                 <!-- форма редактирования профиля -->
                 <div v-else>
-                    <form @submit.prevent="">
+                    <form @submit.prevent="index.saveUserMe(editUserMe)">
                         <ul class="flex flex-col justify-between gap-2.5 text-black dark:text-white text-md">
                             <li class="flex justify-between gap-12">
                                 <label for="login">Логин:</label>
@@ -50,10 +50,10 @@
                             </li>
                         </ul>
                         <div class="flex gap-2.5">
-                            <button @click="editProfileToggle = false" type="submit" class="flex items-center gap-1.5 py-3 px-6 mt-3 text-black dark:text-white text-sm font-light bg-cyan-500 border border-cyan-700 opacity-50 hover:opacity-100 rounded-xl cursor-pointer transition-opacity">
+                            <button @click="index.editProfileToggle = false" type="submit" class="flex items-center gap-1.5 py-3 px-6 mt-3 text-black dark:text-white text-sm font-light bg-cyan-500 border border-cyan-700 opacity-50 hover:opacity-100 rounded-xl cursor-pointer transition-opacity">
                                 Сохранить профиль
                             </button>
-                            <button @click="editProfileToggle = true" class="flex items-center gap-1.5 py-3 px-6 mt-3 text-cyan-500 text-sm font-light border border-cyan-700 opacity-50 hover:opacity-100 rounded-xl cursor-pointer transition-opacity">
+                            <button @click="index.editProfileToggle = true" class="flex items-center gap-1.5 py-3 px-6 mt-3 text-cyan-500 text-sm font-light border border-cyan-700 opacity-50 hover:opacity-100 rounded-xl cursor-pointer transition-opacity">
                                 Отмена
                             </button>
                         </div>
@@ -78,8 +78,5 @@ const formatDate = (dateString) => {
 }
 
 
-const save = () => {
-    console.log(editUserMe.value);
-    
-}
+
 </script>

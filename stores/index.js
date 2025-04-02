@@ -6,6 +6,7 @@ export const useIndexStore = defineStore('index', {
       loader: false, // индикатор загрузки
       search: '', // поисковая строка
       authToggle: true, // переключитель состояния авторизации / регистрации
+      editProfileToggle: false,
       userMe: {},
     }
   },
@@ -59,30 +60,33 @@ export const useIndexStore = defineStore('index', {
       }
     },
     // сохранение профиля
-    async saveUserMe() {
+    async saveUserMe(editUserMe) {
       try {
+        console.log(editUserMe.name);
+        
         this.loader = true;
-
-        const response = await fetch(`https://static.dublecode.ru/api/users/${documentId}`, {
+        const token = localStorage.getItem('jwt')
+        const response = await fetch(`https://static.dublecode.ru/api/users/${this.userMe.id}`, {
           method: 'PUT',
           headers: {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-          body: {
-            data: {
-                name: '',
-                email: '',
-            },
-          },
+          body: JSON.stringify({ // Преобразуем объект в строку JSON
+            name: editUserMe.name, // Используйте значение из editUser Me
+            email: editUserMe.email, // Используйте значение из editUser Me
+          }),
         });
     
         const data = await response.json();
+        console.log(data);
 
       } catch (error) {
         console.log(error);
       } finally {
         this.loader = false;
+        this.editProfileToggle = false;
       }
-    }
+    },
   }
 })
