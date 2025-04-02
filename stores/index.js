@@ -61,31 +61,29 @@ export const useIndexStore = defineStore('index', {
     },
     // сохранение профиля
     async saveUserMe(editUserMe) {
+      this.editProfileToggle = false;
       try {
-        console.log(editUserMe.name);
-        
         this.loader = true;
-        const token = localStorage.getItem('jwt')
+        const token = localStorage.getItem('jwt');
+        
         const response = await fetch(`https://static.dublecode.ru/api/users/${this.userMe.id}`, {
           method: 'PUT',
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ // Преобразуем объект в строку JSON
-            name: editUserMe.name, // Используйте значение из editUser Me
-            email: editUserMe.email, // Используйте значение из editUser Me
+          body: JSON.stringify({
+            name: editUserMe.name,
+            email: editUserMe.email,
           }),
         });
-    
+        
         const data = await response.json();
-        console.log(data);
-
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         this.loader = false;
-        this.editProfileToggle = false;
+        this.editProfileToggle = true;
       }
     },
   }

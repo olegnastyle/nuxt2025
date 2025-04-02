@@ -50,7 +50,7 @@
                             </li>
                         </ul>
                         <div class="flex gap-2.5">
-                            <button @click="index.editProfileToggle = false" type="submit" class="flex items-center gap-1.5 py-3 px-6 mt-3 text-black dark:text-white text-sm font-light bg-cyan-500 border border-cyan-700 opacity-50 hover:opacity-100 rounded-xl cursor-pointer transition-opacity">
+                            <button type="submit" class="flex items-center gap-1.5 py-3 px-6 mt-3 text-black dark:text-white text-sm font-light bg-cyan-500 border border-cyan-700 opacity-50 hover:opacity-100 rounded-xl cursor-pointer transition-opacity">
                                 Сохранить профиль
                             </button>
                             <button @click="index.editProfileToggle = true" class="flex items-center gap-1.5 py-3 px-6 mt-3 text-cyan-500 text-sm font-light border border-cyan-700 opacity-50 hover:opacity-100 rounded-xl cursor-pointer transition-opacity">
@@ -66,7 +66,6 @@
 
 <script setup>
 const index = useIndexStore();
-const editProfileToggle = ref(true)
 const editUserMe = ref({})
 
 // обработка даты регистрации профиля
@@ -76,7 +75,4 @@ const formatDate = (dateString) => {
     const [hours, minutes] = timePart.split(':');
     return `${day}-${month}-${year} в ${hours}:${minutes}`;
 }
-
-
-
 </script>
