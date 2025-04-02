@@ -41,7 +41,7 @@ export const useIndexStore = defineStore('index', {
         const response = await fetch('https://static.dublecode.ru/api/auth/local', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json', // Указываем тип контента
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             "identifier": loginData.email,
