@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { jsx } from 'vue/jsx-runtime'
 
 export const useIndexStore = defineStore('index', {
   state: () => {
@@ -7,8 +6,8 @@ export const useIndexStore = defineStore('index', {
       loader: false, // индикатор загрузки
       search: '', // поисковая строка
       authToggle: true, // переключитель состояния авторизации / регистрации
-      editProfileToggle: true,
-      userMe: {},
+      editProfileToggle: true, // переключитель редактирования профиля
+      userMe: {}, // данные пользователя
     }
   },
   actions: {
@@ -51,11 +50,10 @@ export const useIndexStore = defineStore('index', {
         });
     
         const data = await response.json();
+        // перезаписываем токен
         localStorage.setItem('jwt', data.jwt)
+        // обновили данные о пользователе
         this.userMe = data.user
-        if (!response.ok) {
-          throw new Error(data.error.message); // Обработка ошибок
-        }
       } catch (error) {
         console.log('Ошибка при авторизации:', error);
       }

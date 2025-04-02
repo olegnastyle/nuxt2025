@@ -28,22 +28,20 @@
       >
         <div v-if="index.userMe.documentId" class="font-light">
           <div class="flex flex-col gap-1 px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <h3 class="font-bold">Олег Нуржанов</h3>
+            <h3 class="font-bold">{{ index.userMe.name }}</h3>
             <div class="truncate">{{ index.userMe.email }}</div>
           </div>
           <hr class="border-white/10" />
           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
             <li>
-              <NuxtLink
-                to="/profile"
+              <NuxtLink to="/profile" @click="index.editProfileToggle = true"
                 class="block px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Профиль
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink
-                to="/profile"
+              <NuxtLink to="/profile" @click="index.editProfileToggle = false"
                 class="block px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Настройки
