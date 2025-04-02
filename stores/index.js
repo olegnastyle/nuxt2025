@@ -37,9 +37,6 @@ export const useIndexStore = defineStore('index', {
     // авторизация
     async login(loginData) {
       try {
-        console.log(loginData.email);
-        console.log(loginData.password);
-    
         const response = await fetch('https://static.dublecode.ru/api/auth/local', {
           method: 'POST',
           headers: {
@@ -61,5 +58,31 @@ export const useIndexStore = defineStore('index', {
         console.log('Ошибка при авторизации:', error);
       }
     },
+    // сохранение профиля
+    async saveUserMe() {
+      try {
+        this.loader = true;
+
+        const response = await fetch(`https://static.dublecode.ru/api/users/${documentId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: {
+            data: {
+                name: '',
+                email: '',
+            },
+          },
+        });
+    
+        const data = await response.json();
+
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loader = false;
+      }
+    }
   }
 })
