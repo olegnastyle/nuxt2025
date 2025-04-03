@@ -1,15 +1,15 @@
 <template>
     <div class="w-full">
-        <!-- Основное меню -->
+        <!-- Мобильное меню -->
         <ul :class="[
-            'flex flex-col lg:flex-row lg:items-center w-full p-4 lg:p-0 mt-4 lg:mt-0 font-medium border border-gray-100 rounded-lg bg-gray-50 lg:space-x-8 rtl:space-x-reverse lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-900 dark:border-gray-700',
-            menuOpen ? 'block' : 'hidden lg:flex'
+            'flex flex-col lg:hidden w-full p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700',
+            menuOpen ? 'block' : 'hidden'
         ]">
-            <li v-for="nav in navbar" :key="nav.sort" class="relative group w-full lg:w-auto">
+            <li v-for="nav in navbar" :key="nav.sort" class="relative w-full">
                 <div class="p-1 flex items-center justify-between w-full hover:bg-gray-100 dark:hover:bg-gray-700/50 rounded-lg transition-colors duration-200">
                     <NuxtLink :to="nav.to"
-                        class="flex-1 py-3 px-4 text-gray-900 rounded lg:hover:bg-transparent lg:hover:text-cyan-700 lg:p-0 dark:text-white lg:dark:hover:text-cyan-500 dark:hover:bg-transparent dark:border-gray-700"
-                        :class="{ 'lg:text-cyan-700 lg:dark:text-cyan-500': route.path == nav.path }"
+                        class="flex-1 py-3 px-4 text-gray-900 rounded dark:text-white dark:hover:bg-transparent dark:border-gray-700"
+                        :class="{ 'text-cyan-700 dark:text-cyan-500': route.path == nav.path }"
                         @click="handleLinkClick">
                         <span class="text-base">{{ nav.name }}</span>
                     </NuxtLink>
@@ -20,16 +20,14 @@
                     </button>
                 </div>
                 
-                <!-- Выпадающее меню -->
+                <!-- Мобильное выпадающее меню -->
                 <div v-if="Array.isArray(nav.categories) && nav.categories.length > 0" 
-                    class="lg:absolute lg:top-full lg:left-0 w-full lg:w-48 font-normal bg-gray-300 backdrop-blur-sm divide-y divide-gray-100 rounded-lg  dark:bg-black/40 dark:divide-white"
+                    class="w-full font-normal bg-gray-300 backdrop-blur-sm divide-y divide-gray-100 rounded-lg dark:bg-black/40 dark:divide-white"
                     :class="[
-                        isCategoryOpen(nav) ? 'block' : 'hidden',
-                        'lg:group-hover:block',
-                        {'lg:right-0 lg:left-auto': isNearRightEdge}
+                        isCategoryOpen(nav) ? 'block' : 'hidden'
                     ]">
                     <ul class="p-1 text-sm text-gray-700 dark:text-gray-200 max-h-[60vh] overflow-y-auto">
-                        <li v-for="category in nav.categories" :key="category.id" class="relative group/sub w-full">
+                        <li v-for="category in nav.categories" :key="category.id" class="relative w-full">
                             <div class="flex items-center justify-between w-full">
                                 <NuxtLink :to="'/'+category.slug" 
                                     class="flex-1 px-4 py-3 rounded transition-colors duration-200"
@@ -44,21 +42,79 @@
                                 </button>
                             </div>
 
-                            <!-- Вложенное выпадающее меню -->
+                            <!-- Мобильное вложенное меню -->
                             <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0"
-                                class="lg:absolute lg:top-0 lg:left-full w-full lg:w-48 bg-gray-200 backdrop-blur-sm divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700/60 max-h-[60vh] overflow-y-auto"
+                                class="w-full bg-gray-200 backdrop-blur-sm divide-y divide-gray-100 rounded-lg dark:bg-gray-700/60 max-h-[60vh] overflow-y-auto"
                                 :class="[
-                                    isSubcategoryOpen(category) ? 'block' : 'hidden',
-                                    'lg:group-hover/sub:block',
-                                    {
-                                        'lg:right-full lg:left-auto': isNearRightEdge,
-                                        'lg:bottom-0 lg:top-auto': isNearBottomEdge
-                                    }
+                                    isSubcategoryOpen(category) ? 'block' : 'hidden'
                                 ]">
                                 <ul class="p-1 text-sm w-full text-gray-700 dark:text-gray-200">
                                     <li v-for="subcategory in category.subcategories" :key="subcategory.id">
                                         <NuxtLink :to="'/'+subcategory.slug" 
                                             class="block px-4 py-3 rounded hover:bg-white dark:hover:bg-gray-600 dark:hover:text-white transition-colors duration-200"
+                                            @click="handleLinkClick">
+                                            <span class="text-base">{{ subcategory.name }}</span>
+                                        </NuxtLink>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Десктопное меню -->
+        <ul class="hidden lg:flex lg:items-center lg:space-x-8 rtl:space-x-reverse">
+            <li v-for="nav in navbar" :key="nav.sort" class="relative group">
+                <div class="flex items-center gap-1">
+                    <NuxtLink :to="nav.to"
+                        class="py-2 px-3 text-gray-900 dark:text-white hover:text-cyan-700 dark:hover:text-cyan-500 transition-all duration-300 transform hover:scale-105"
+                        :class="{ 'text-cyan-700 dark:text-cyan-500': route.path == nav.path }"
+                        @click="handleLinkClick">
+                        <span class="text-base">{{ nav.name }}</span>
+                    </NuxtLink>
+                    <div v-if="Array.isArray(nav.categories) && nav.categories.length > 0" 
+                        class="flex items-center justify-center w-4 h-4 transition-all duration-300 group-hover:rotate-180">
+                        <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 group-hover:text-cyan-700 dark:group-hover:text-cyan-500" 
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Десктопное выпадающее меню -->
+                <div v-if="Array.isArray(nav.categories) && nav.categories.length > 0" 
+                    class="absolute top-full left-0 w-48 font-normal bg-white dark:bg-gray-800 rounded-lg shadow-lg transform transition-all duration-300 origin-top scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                    :class="{'right-0 left-auto': isNearRightEdge}">
+                    <ul class="p-1 text-sm text-gray-700 dark:text-gray-200">
+                        <li v-for="category in nav.categories" :key="category.id" class="relative group/sub">
+                            <div class="flex items-center justify-between w-full hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all duration-300">
+                                <NuxtLink :to="'/'+category.slug" 
+                                    class="flex-1 px-4 py-3 transition-all duration-300"
+                                    @click="handleLinkClick">
+                                    <span class="text-base">{{ category.name }}</span>
+                                </NuxtLink>
+                                <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0" 
+                                    class="flex items-center justify-center w-8 h-8 transition-all duration-300 group-hover/sub:rotate-90">
+                                    <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 group-hover/sub:text-cyan-700 dark:group-hover/sub:text-cyan-500" 
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Десктопное вложенное меню -->
+                            <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0"
+                                class="absolute top-0 left-[calc(100%-0.5rem)] w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl transform transition-all duration-300 origin-left scale-0 group-hover/sub:scale-100 opacity-0 group-hover/sub:opacity-100 -translate-x-2 group-hover/sub:translate-x-0 z-50"
+                                :class="{
+                                    'right-[calc(100%-0.5rem)] left-auto origin-right': isNearRightEdge,
+                                    'bottom-0 top-auto': isNearBottomEdge
+                                }">
+                                <ul class="p-1 text-sm w-full text-gray-700 dark:text-gray-200">
+                                    <li v-for="subcategory in category.subcategories" :key="subcategory.id">
+                                        <NuxtLink :to="'/'+subcategory.slug" 
+                                            class="block px-4 py-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white transition-all duration-300"
                                             @click="handleLinkClick">
                                             <span class="text-base">{{ subcategory.name }}</span>
                                         </NuxtLink>
@@ -124,8 +180,12 @@ const checkPosition = (element) => {
     const rect = element.getBoundingClientRect()
     const windowWidth = window.innerWidth
     const windowHeight = window.innerHeight
-    isNearRightEdge.value = rect.right + 200 > windowWidth
-    isNearBottomEdge.value = rect.bottom + 200 > windowHeight
+    
+    // Проверяем, не выходит ли меню за правый край экрана
+    isNearRightEdge.value = rect.right + 400 > windowWidth
+    
+    // Проверяем, не выходит ли меню за нижний край экрана
+    isNearBottomEdge.value = rect.bottom + 300 > windowHeight
 }
 
 const handleClickOutside = (event) => {
@@ -135,11 +195,14 @@ const handleClickOutside = (event) => {
     const categoryButtons = document.querySelectorAll('.category-button')
     const subcategoryButtons = document.querySelectorAll('.subcategory-button')
     
-    if (!menu?.contains(event.target) && 
-        !Array.from(dropdowns).some(dropdown => dropdown.contains(event.target)) &&
-        !Array.from(submenus).some(submenu => submenu.contains(event.target)) &&
-        !Array.from(categoryButtons).some(button => button.contains(event.target)) &&
-        !Array.from(subcategoryButtons).some(button => button.contains(event.target))) {
+    const isClickInside = 
+        menu?.contains(event.target) || 
+        Array.from(dropdowns).some(dropdown => dropdown.contains(event.target)) ||
+        Array.from(submenus).some(submenu => submenu.contains(event.target)) ||
+        Array.from(categoryButtons).some(button => button.contains(event.target)) ||
+        Array.from(subcategoryButtons).some(button => button.contains(event.target))
+    
+    if (!isClickInside) {
         closeAllMenus()
     }
 }
