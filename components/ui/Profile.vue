@@ -18,7 +18,7 @@
         id="userDropdown"
         class="absolute z-10 p-1 pb-0 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600"
         :class="{
-          'right-0': isNearRightEdge,
+          'right-0': true,
           'bottom-full mb-2': isNearBottomEdge
         }"
       >
@@ -30,14 +30,14 @@
           <hr class="border-white/10" />
           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
             <li>
-              <NuxtLink to="/profile" @click="index.editProfileToggle = true"
+              <NuxtLink to="/profile" @click="() => { index.editProfileToggle = true; profileToggle = false; }"
                 class="block px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Профиль
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/profile" @click="index.editProfileToggle = false"
+              <NuxtLink to="/profile" @click="() => { index.editProfileToggle = false; profileToggle = false; }"
                 class="block px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Настройки
