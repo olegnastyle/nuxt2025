@@ -85,7 +85,7 @@
 
                 <!-- Десктопное выпадающее меню -->
                 <div v-if="Array.isArray(nav.categories) && nav.categories.length > 0" 
-                    class="absolute top-full left-0 w-48 font-normal bg-white dark:bg-gray-800 rounded-lg shadow-lg transform transition-all duration-300 origin-top scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                    class="absolute top-full left-0 w-48 font-normal bg-white dark:bg-gray-800/50 rounded-lg shadow-lg transform transition-all duration-300 origin-top scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
                     :class="{'right-0 left-auto': isNearRightEdge}">
                     <ul class="p-1 text-sm text-gray-700 dark:text-gray-200">
                         <li v-for="category in nav.categories" :key="category.id" class="relative group/sub">
@@ -96,7 +96,7 @@
                                     <span class="text-base">{{ category.name }}</span>
                                 </NuxtLink>
                                 <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0" 
-                                    class="flex items-center justify-center w-8 h-8 transition-all duration-300 group-hover/sub:rotate-90">
+                                    class="flex items-center justify-center w-8 h-8 transition-all duration-300">
                                     <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 group-hover/sub:text-cyan-700 dark:group-hover/sub:text-cyan-500" 
                                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
