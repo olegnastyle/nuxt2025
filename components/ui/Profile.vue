@@ -2,21 +2,13 @@
     <!-- Оборачиваем кнопку и выпадающее меню в контейнер для отслеживания hover-событий -->
     <div class="relative inline-block" @mouseenter="profileToggle = true" @mouseleave="profileToggle = false">
       <!-- Кнопка профиля -->
-      <button id="avatarButton" class="cursor-pointer focus:outline-none">
+      <button id="avatarButton" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg p-2">
         <img
           v-if="index.userMe.documentId"
-          class="h-7 w-7 rounded-full"
-          src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+          class="size-5 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
           alt="Профиль"
         />
-        <svg
-          v-else
-          class="h-6 w-6 text-black dark:text-white hover:text-cyan-500"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z"></path>
+        <svg v-else class="size-5 text-black dark:text-white hover:text-cyan-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"fill="currentColor"><path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z"></path>
         </svg>
       </button>
   
@@ -25,6 +17,10 @@
         v-if="profileToggle"
         id="userDropdown"
         class="absolute z-10 p-1 pb-0 bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600"
+        :class="{
+          'right-0': isNearRightEdge,
+          'bottom-full mb-2': isNearBottomEdge
+        }"
       >
         <div v-if="index.userMe.documentId" class="font-light">
           <div class="flex flex-col gap-1 px-4 py-3 text-sm text-gray-900 dark:text-white">
@@ -87,6 +83,27 @@
 
 <script setup>
 const profileToggle = ref(false)
+const isNearRightEdge = ref(false)
+const isNearBottomEdge = ref(false)
 
 const index = useIndexStore();
+
+const checkPosition = () => {
+    const button = document.getElementById('avatarButton')
+    if (!button) return
+    const rect = button.getBoundingClientRect()
+    const windowWidth = window.innerWidth
+    const windowHeight = window.innerHeight
+    isNearRightEdge.value = rect.right + 200 > windowWidth
+    isNearBottomEdge.value = rect.bottom + 200 > windowHeight
+}
+
+onMounted(() => {
+    window.addEventListener('resize', checkPosition)
+    checkPosition()
+})
+
+onUnmounted(() => {
+    window.removeEventListener('resize', checkPosition)
+})
 </script>
