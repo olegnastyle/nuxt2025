@@ -22,7 +22,7 @@
                 
                 <!-- Выпадающее меню -->
                 <div v-if="Array.isArray(nav.categories) && nav.categories.length > 0" 
-                    class="lg:absolute lg:top-full lg:left-0 w-full lg:w-48 font-normal bg-white/98 backdrop-blur-sm divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700/80 dark:divide-gray-600"
+                    class="lg:absolute lg:top-full lg:left-0 w-full lg:w-48 font-normal bg-white/98 backdrop-blur-sm divide-y divide-gray-100 rounded-lg  dark:bg-black/40 dark:divide-white"
                     :class="[
                         isCategoryOpen(nav) ? 'block' : 'hidden',
                         'lg:group-hover:block',
@@ -46,7 +46,7 @@
 
                             <!-- Вложенное выпадающее меню -->
                             <div v-if="Array.isArray(category.subcategories) && category.subcategories.length > 0"
-                                class="lg:absolute lg:top-0 lg:left-full w-full lg:w-48 bg-white/98 backdrop-blur-sm divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-800/60 max-h-[60vh] overflow-y-auto"
+                                class="lg:absolute lg:top-0 lg:left-full w-full lg:w-48 bg-white/98 backdrop-blur-sm divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700/60 max-h-[60vh] overflow-y-auto"
                                 :class="[
                                     isSubcategoryOpen(category) ? 'block' : 'hidden',
                                     'lg:group-hover/sub:block',
