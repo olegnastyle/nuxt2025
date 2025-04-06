@@ -15,7 +15,7 @@ export const useIndexStore = defineStore('index', {
     async fetchUserMe() {
       try {
         const token = localStorage.getItem('jwt')
-        const response = await fetch('https://static.dublecode.ru/api/users/me',
+        const response = await fetch('https://static.dublecode.ru/api/users/me?populate=*',
           {
             method: 'GET',
             headers: {
@@ -41,7 +41,7 @@ export const useIndexStore = defineStore('index', {
         const response = await fetch('https://static.dublecode.ru/api/auth/local', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json', // Указываем тип контента
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             "identifier": loginData.email,
@@ -51,9 +51,13 @@ export const useIndexStore = defineStore('index', {
     
         const data = await response.json();
         // перезаписываем токен
-        localStorage.setItem('jwt', data.jwt)
+        localStorage.setItem('jwt', data.jwt);
         // обновили данные о пользователе
-        this.userMe = data.user
+        this.userMe = data.user;
+        // получаем полные данные пользователя
+        await this.fetchUserMe();
+
+        console.log(this.userMe);
       } catch (error) {
         console.log('Ошибка при авторизации:', error);
       }

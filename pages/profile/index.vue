@@ -21,8 +21,8 @@
                 <div v-if="index.editProfileToggle">
                     <ul class="flex flex-col gap-2.5 text-black/50 dark:text-white text-sm">
                         <li>Логин:<br/><span class="text-black dark:text-white/50 text-xl">{{ index.userMe.username }}</span></li>
-                        <li>Имя:<br/><span class="text-black dark:text-white/50 text-xl">{{ index.userMe.name }}</span></li>
-                        <li>Почта:<br/><span class="text-black dark:text-white/50 text-xl">{{ index.userMe.email }}</span></li>
+                        <li>Имя:<br/><span class="text-black dark:text-white/50 text-xl">{{ index.userMe.name || 'Ваше имя' }}</span></li>
+                        <li>Почта:<br/><span class="text-black dark:text-white/50 text-xl">{{ index.userMe.email || 'Ваша почта' }}</span></li>
                         <li>Дата создания:<br/><span class="text-black dark:text-white/50 text-xl">{{ formatDate(index.userMe.createdAt) }}</span></li>
                     </ul>
                     <button @click="index.editProfileToggle = false" class="flex items-center gap-1.5 py-3 px-6 mt-3 text-black dark:text-white text-sm font-light border border-black/50 dark:border-white/50 opacity-50 hover:opacity-100 rounded-xl cursor-pointer transition-opacity">
