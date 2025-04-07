@@ -10,11 +10,11 @@
 </template>
 
 <script setup>
-const view = ref(true);
+const view = ref(false);
 
-onMounted(() => {
-    setInterval(() => {
-        view.value = !view.value
-    }, 150000) // 2,5 минуты в миллисекундах
-});
+// onMounted(() => {
+//     setInterval(() => {
+//         view.value = !view.value
+//     }, 150000) // 2,5 минуты в миллисекундах
+// });
 </script>
