@@ -5,7 +5,7 @@
             'flex flex-col lg:hidden w-full p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700',
             menuOpen ? 'block' : 'hidden'
         ]">
-            <li v-for="nav in navbar" :key="nav.sort" class="relative w-full">
+            <li v-for="nav in navbar" :key="nav.sort" :class="`order-${nav.sort}`" class="relative w-full">
                 <div class="p-1 flex items-center justify-between w-full hover:bg-gray-100 dark:hover:bg-gray-700/50 rounded-lg transition-colors duration-200">
                     <NuxtLink :to="nav.to"
                         class="flex-1 py-3 px-4 text-gray-900 rounded dark:text-white dark:hover:bg-transparent dark:border-gray-700"
@@ -85,11 +85,11 @@
 
                 <!-- Десктопное выпадающее меню -->
                 <div v-if="Array.isArray(nav.categories) && nav.categories.length > 0" 
-                    class="absolute top-full left-0 w-48 font-normal bg-white dark:bg-gray-800/50 rounded-lg shadow-lg transform transition-all duration-300 origin-top scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
+                    class="absolute top-full left-0 w-48 font-normal bg-white dark:bg-gray-700 rounded-lg shadow-lg transform transition-all duration-300 origin-top scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0"
                     :class="{'right-0 left-auto': isNearRightEdge}">
                     <ul class="p-1 text-sm text-gray-700 dark:text-gray-200">
                         <li v-for="category in nav.categories" :key="category.id" class="relative group/sub">
-                            <div class="flex items-center justify-between w-full hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-all duration-300">
+                            <div class="flex items-center justify-between w-full hover:bg-gray-100 dark:hover:bg-gray-600/50 rounded transition-all duration-300">
                                 <NuxtLink :to="'/'+category.slug" 
                                     class="flex-1 px-4 py-3 transition-all duration-300"
                                     @click="handleLinkClick">
@@ -114,7 +114,7 @@
                                 <ul class="p-1 text-sm w-full text-gray-700 dark:text-gray-200">
                                     <li v-for="subcategory in category.subcategories" :key="subcategory.id">
                                         <NuxtLink :to="'/'+subcategory.slug" 
-                                            class="block px-4 py-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white transition-all duration-300"
+                                            class="block px-4 py-3 rounded hover:bg-gray-100 dark:hover:bg-gray-700/50 dark:hover:text-white transition-all duration-300"
                                             @click="handleLinkClick">
                                             <span class="text-base">{{ subcategory.name }}</span>
                                         </NuxtLink>
