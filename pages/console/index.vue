@@ -10,7 +10,7 @@
         <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Управление навигацией</h2>
         <ul v-for="nav in navbar" :key="nav.sort" class="flex flex-col">
           <li class="flex gap-2.5 my-1.5 p-2 bg-gray-700/50 rounded-lg">
-            <svg class="size-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
+            <svg class="size-6 cursor-move" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
             <p>{{ nav.name }}</p>
           </li>
         </ul>
