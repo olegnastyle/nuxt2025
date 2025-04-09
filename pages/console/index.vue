@@ -10,7 +10,7 @@
         <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Управление навигацией</h2>
         <div class="flex flex-col gap-2">
           <div v-for="(item, index) in sortedNavbar" :key="item.id" 
-               class="flex items-center gap-2.5 my-1.5 p-2 bg-gray-700/50 rounded-lg cursor-move"
+               class="flex items-center gap-2.5 my-1.5 p-2 bg-gray-700/50 rounded-lg cursor-move active:bg-gray-700"
                draggable="true"
                @dragstart="dragStart($event, index)"
                @dragover.prevent
