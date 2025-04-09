@@ -14,20 +14,26 @@ export const useIndexStore = defineStore('index', {
     // получение данных пользователя
     async fetchUserMe() {
       try {
+        this.loader = true;
         const token = localStorage.getItem('jwt')
-        const response = await fetch('https://static.dublecode.ru/api/users/me?populate=*',
-          {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          }
-        )
+        
+        if (token) {
+          const response = await fetch('https://static.dublecode.ru/api/users/me?populate=*',
+            {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+              },
+            }
+          )
 
-        const data = await response.json();
-        this.userMe = data;
+          const data = await response.json();
+          this.userMe = data;
+        }
       } catch (error) {
         console.log(error);
+      } finally {
+        this.loader = false;
       }
     },
     // выход из профиля
@@ -38,6 +44,7 @@ export const useIndexStore = defineStore('index', {
     // авторизация
     async login(loginData) {
       try {
+        this.loader = true;
         const response = await fetch('https://static.dublecode.ru/api/auth/local', {
           method: 'POST',
           headers: {
@@ -56,10 +63,11 @@ export const useIndexStore = defineStore('index', {
         this.userMe = data.user;
         // получаем полные данные пользователя
         await this.fetchUserMe();
-
-        console.log(this.userMe);
+        
       } catch (error) {
         console.log('Ошибка при авторизации:', error);
+      } finally {
+        this.loader = false;
       }
     },
     // сохранение профиля
