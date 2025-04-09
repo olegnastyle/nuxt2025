@@ -22,9 +22,12 @@ function convertDatetime(isoDatetime) {
   return `${day} ${month} ${year}`;
 }
 
-const { id } = useRoute().params;
+const route = useRoute()
+const { category, slug } = route.params
 const post = ref({});
 const index = useIndexStore();
+
+console.log(category, slug);
 
 import markdownit from 'markdown-it';
 const md = markdownit();
@@ -39,7 +42,7 @@ const seo = ref({});
 const fetch = async () => {
   try {
       index.loader = true;
-      const res = await $fetch(`https://static.dublecode.ru/api/posts?filters[slug][$eqi]=${id}&populate=*`);
+      const res = await $fetch(`https://static.dublecode.ru/api/posts?filters[slug][$eqi]=${slug}&populate=*`);
       post.value = res.data[0];
       if (post.value) {
           updateViews(post.value.documentId);
