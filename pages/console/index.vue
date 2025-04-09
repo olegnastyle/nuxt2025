@@ -8,8 +8,10 @@
 
       <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
         <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Управление навигацией</h2>
-        <ul>
-          <li></li>
+        <ul v-for="nav in navbar" :key="nav.sort">
+          <li>
+            <p>{{ nav.name }}</p>
+          </li>
         </ul>
       </div>
       
@@ -29,21 +31,24 @@ import BlockVisibilityControl from '~/components/ui/BlockVisibilityControl.vue'
 
 const globalStore = useGlobalStore()
 
-const navbar = ref([])
+const navbar = ref({})
 const fetchNavbar = async () => {
     try {
-        index.loader = true
+        // index.loader = true
         const res = await $fetch('https://static.dublecode.ru/api/navbars?sort=sort:asc')
+        
         navbar.value = res.data
+        console.log(navbar.value);
+        
     } catch (error) {
         console.log(error)
     } finally {
-        index.loader = false
+        // index.loader = false
     }
 }
 
-onMounted(async () => {
-  await globalStore.fetchGlobalSettings()
+onMounted(() => {
+  globalStore.fetchGlobalSettings()
   fetchNavbar()
 })
 </script>
