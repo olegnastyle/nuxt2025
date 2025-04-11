@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-6">
-    <section>
+    <!-- <section>
       <swiper
         :slides-per-view="3"
         :space-between="50"
@@ -12,7 +12,7 @@
         <swiper-slide>Slide 3</swiper-slide>
         ...
       </swiper>
-    </section>
+    </section> -->
     <section v-if="false" :class="'order-1'">
       <div class="relative overflow-hidden">
         <div class="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">

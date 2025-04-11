@@ -188,25 +188,6 @@ const checkPosition = (element) => {
     isNearBottomEdge.value = rect.bottom + 300 > windowHeight
 }
 
-const handleClickOutside = (event) => {
-    const menu = document.querySelector('.main-menu')
-    const dropdowns = document.querySelectorAll('.dropdown-menu')
-    const submenus = document.querySelectorAll('.submenu')
-    const categoryButtons = document.querySelectorAll('.category-button')
-    const subcategoryButtons = document.querySelectorAll('.subcategory-button')
-    
-    const isClickInside = 
-        menu?.contains(event.target) || 
-        Array.from(dropdowns).some(dropdown => dropdown.contains(event.target)) ||
-        Array.from(submenus).some(submenu => submenu.contains(event.target)) ||
-        Array.from(categoryButtons).some(button => button.contains(event.target)) ||
-        Array.from(subcategoryButtons).some(button => button.contains(event.target))
-    
-    if (!isClickInside) {
-        closeAllMenus()
-    }
-}
-
 const fetchNavbar = async () => {
     try {
         index.loader = true
@@ -222,13 +203,15 @@ const fetchNavbar = async () => {
 onMounted(() => {
     fetchNavbar()
     window.addEventListener('resize', () => {
-        const elements = document.querySelectorAll('.group/sub')
+        const elements = document.querySelectorAll('.group')
         elements.forEach(element => checkPosition(element))
     })
-    document.addEventListener('click', handleClickOutside)
 })
 
 onUnmounted(() => {
-    document.removeEventListener('click', handleClickOutside)
+    window.removeEventListener('resize', () => {
+        const elements = document.querySelectorAll('.group')
+        elements.forEach(element => checkPosition(element))
+    })
 })
 </script>
