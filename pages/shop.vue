@@ -1,268 +1,315 @@
 <template>
-    <h1 class="my-4 text-2xl text-cyan-700 darl:blue-500 font-medium">Магазин</h1>
-    <!-- список продуктов -->
-    <div class="bg-white">
-  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
-
-    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-      <div v-for="(post, index) in posts" :key="post.id" class="group relative">
-        <img :src="'https://static.dublecode.ru' + post.cover.url" alt="Product image" class="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80">
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-sm text-gray-700">
-              <a href="#" @click.prevent="selectPost(post)">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                {{ post.title }}
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">{{ post.color }}</p>
-          </div>
-          <p class="text-sm font-medium text-gray-900">{{ post.price }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    <div v-if="isModalOpen && selectedPost" class="relative z-10" role="dialog" aria-modal="true">
-        <!--
-            Background backdrop, show/hide based on modal state.
-
-            Entering: "ease-out duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-            Leaving: "ease-in duration-200"
-            From: "opacity-100"
-            To: "opacity-0"
-        -->
-        <div class="fixed inset-0 hidden bg-gray-500/75 transition-opacity md:block" aria-hidden="true"></div>
-
-        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-            <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
-            <!--
-                Modal panel, show/hide based on modal state.
-
-                Entering: "ease-out duration-300"
-                From: "opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
-                To: "opacity-100 translate-y-0 md:scale-100"
-                Leaving: "ease-in duration-200"
-                From: "opacity-100 translate-y-0 md:scale-100"
-                To: "opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
-            -->
-            <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
-                <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-                <button type="button" @click="closeModal" class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8">
-                    <span class="sr-only">Закрыть</span>
-                    <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                </button>
-
-                <div class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
-                    <img :src="'https://static.dublecode.ru' + selectedPost.cover.url" alt="Product image" class="aspect-[2/3] w-full rounded-lg bg-gray-100 object-cover sm:col-span-4 lg:col-span-5">
-                    <div class="sm:col-span-8 lg:col-span-7">
-                    <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">{{ selectedPost.title }}</h2>
-
-                    <section aria-labelledby="information-heading" class="mt-2">
-                        <h3 id="information-heading" class="sr-only">Product information</h3>
-
-                        <p class="text-2xl text-gray-900">{{ selectedPost.price }}</p>
-
-                        <!-- Reviews -->
-                        <div class="mt-6">
-                        <h4 class="sr-only">Reviews</h4>
-                        <div class="flex items-center">
-                            <div class="flex items-center">
-                            <!-- Active: "text-gray-900", Default: "text-gray-200" -->
-                            <svg class="size-5 shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-                            </svg>
-                            <svg class="size-5 shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-                            </svg>
-                            <svg class="size-5 shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-                            </svg>
-                            <svg class="size-5 shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-                            </svg>
-                            <svg class="size-5 shrink-0 text-gray-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-                            </svg>
-                            </div>
-                            <p class="sr-only">3.9 out of 5 stars</p>
-                            <a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">117 reviews</a>
-                        </div>
-                        </div>
-                    </section>
-
-                    <section aria-labelledby="options-heading" class="mt-10">
-                        <h3 id="options-heading" class="sr-only">Product options</h3>
-
-                        <form>
-                        <!-- Colors -->
-                        <fieldset aria-label="Choose a color">
-                            <legend class="text-sm font-medium text-gray-900">Color</legend>
-
-                            <div class="mt-4 flex items-center gap-x-3">
-                            <!-- Active and Checked: "ring ring-offset-1" -->
-                            <label aria-label="White" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-none">
-                                <input type="radio" name="color-choice" value="White" class="sr-only">
-                                <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-white"></span>
-                            </label>
-                            <!-- Active and Checked: "ring ring-offset-1" -->
-                            <label aria-label="Gray" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-none">
-                                <input type="radio" name="color-choice" value="Gray" class="sr-only">
-                                <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-gray-200"></span>
-                            </label>
-                            <!-- Active and Checked: "ring ring-offset-1" -->
-                            <label aria-label="Black" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-900 focus:outline-none">
-                                <input type="radio" name="color-choice" value="Black" class="sr-only">
-                                <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-gray-900"></span>
-                            </label>
-                            </div>
-                        </fieldset>
-
-                        <!-- Sizes -->
-                        <fieldset class="mt-10" aria-label="Choose a size">
-                            <div class="flex items-center justify-between">
-                            <div class="text-sm font-medium text-gray-900">Size</div>
-                            <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
-                            </div>
-
-                            <div class="mt-4 grid grid-cols-4 gap-4">
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1">
-                                <input type="radio" name="size-choice" value="XXS" class="sr-only">
-                                <span>XXS</span>
-                                <!--
-                                Active: "border", Not Active: "border-2"
-                                Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1">
-                                <input type="radio" name="size-choice" value="XS" class="sr-only">
-                                <span>XS</span>
-                                <!--
-                                Active: "border", Not Active: "border-2"
-                                Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1">
-                                <input type="radio" name="size-choice" value="S" class="sr-only">
-                                <span>S</span>
-                                <!--
-                                Active: "border", Not Active: "border-2"
-                                Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1">
-                                <input type="radio" name="size-choice" value="M" class="sr-only">
-                                <span>M</span>
-                                <!--
-                                Active: "border", Not Active: "border-2"
-                                Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1">
-                                <input type="radio" name="size-choice" value="L" class="sr-only">
-                                <span>L</span>
-                                <!--
-                                Active: "border", Not Active: "border-2"
-                                Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1">
-                                <input type="radio" name="size-choice" value="XL" class="sr-only">
-                                <span>XL</span>
-                                <!--
-                                Active: "border", Not Active: "border-2"
-                                Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1">
-                                <input type="radio" name="size-choice" value="XXL" class="sr-only">
-                                <span>XXL</span>
-                                <!--
-                                Active: "border", Not Active: "border-2"
-                                Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1">
-                                <input type="radio" name="size-choice" value="XXXL" disabled class="sr-only">
-                                <span>XXXL</span>
-                                <span aria-hidden="true" class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
-                                <svg class="absolute inset-0 size-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                                    <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
-                                </svg>
-                                </span>
-                            </label>
-                            </div>
-                        </fieldset>
-
-                        <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to bag</button>
-                        </form>
-                    </section>
+    <div>
+        <h1 class="my-4 text-2xl text-cyan-700 darl:blue-500 font-medium">Магазин</h1>
+        <div v-if="products.length > 0" class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <article v-for="product in products" :key="product.id" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                <div class="relative">
+                    <img class="rounded-t-lg h-44 w-full object-cover" :src="'https://aquaelle.ru/_sh/22/2285.jpg'" :alt="product.attributes?.title" />
+                    <div class="absolute top-2 right-2 bg-[brown]/80 text-white px-2 py-1 rounded text-sm">
+                        {{ product.attributes?.price }} ₽
                     </div>
                 </div>
+                <div class="p-5">
+                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {{ product.attributes?.title }}
+                    </h5>
+                    <p class="mb-3 text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+                        {{ product.attributes?.description }}
+                    </p>
+                    <button @click="selectProduct(product)" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[brown]/80 rounded-lg hover:bg-[brown] focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800">
+                        Подробнее
+                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                        </svg>
+                    </button>
                 </div>
-            </div>
+            </article>
+        </div>
+        <div v-else class="text-center py-8">
+            <p class="text-lg text-gray-600 dark:text-gray-400">Товаров пока нет</p>
+        </div>
+
+        <!-- Модальное окно -->
+        <div v-if="isModalOpen && selectedProduct" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full dark:bg-gray-800">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 dark:bg-gray-800">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                                <div class="relative">
+                                    <img :src="'https://aquaelle.ru/_sh/22/2285.jpg'" :alt="selectedProduct.attributes?.title" class="w-full h-64 object-cover rounded-lg mb-4">
+                                    <div class="absolute top-2 right-2 bg-[brown]/80 text-white px-3 py-1 rounded text-lg">
+                                        {{ selectedProduct.attributes?.price }} ₽
+                                    </div>
+                                </div>
+                                <h3 class="text-2xl leading-6 font-medium text-gray-900 dark:text-white mb-2">
+                                    {{ selectedProduct.attributes?.title }}
+                                </h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                        {{ selectedProduct.attributes?.description }}
+                                    </p>
+                                </div>
+                                <div class="mt-4">
+                                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[brown]/80 text-base font-medium text-white hover:bg-[brown] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:text-sm">
+                                        Купить
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse dark:bg-gray-700">
+                        <button type="button" @click="closeModal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm dark:bg-gray-600 dark:text-white dark:border-gray-500 dark:hover:bg-gray-500">
+                            Закрыть
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <p v-else class="text-black dark:text-white">Здесь пока нет товаров..</p>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+const index = useIndexStore();
+const products = ref([]);
+const isModalOpen = ref(false);
+const selectedProduct = ref(null);
 
-const isModalOpen = ref(false); // Состояние для управления видимостью модального окна
-const selectedPost = ref(null); // Инициализация переменной для выбранного поста
+const fetchProducts = async () => {
+    try {
+        index.loader = true;
+        // Демо данные
+        products.value = [
+            {
+                id: 1,
+                attributes: {
+                    title: 'Ноутбук MacBook Pro 16"',
+                    description: 'Мощный ноутбук для профессионалов с процессором M2 Pro, 16 ГБ памяти и 512 ГБ SSD',
+                    price: '199 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 2,
+                attributes: {
+                    title: 'iPhone 15 Pro Max',
+                    description: 'Смартфон с камерой 48 МП, процессором A17 Pro и титановым корпусом',
+                    price: '149 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 3,
+                attributes: {
+                    title: 'iPad Pro 12.9"',
+                    description: 'Планшет с дисплеем Liquid Retina XDR, процессором M2 и поддержкой Apple Pencil',
+                    price: '129 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 4,
+                attributes: {
+                    title: 'AirPods Pro 2',
+                    description: 'Наушники с активным шумоподавлением и пространственным звуком',
+                    price: '24 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 5,
+                attributes: {
+                    title: 'Apple Watch Series 9',
+                    description: 'Умные часы с Always-On дисплеем и датчиком ЭКГ',
+                    price: '39 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 6,
+                attributes: {
+                    title: 'Mac Studio',
+                    description: 'Профессиональный компьютер с процессором M2 Max и 32 ГБ памяти',
+                    price: '249 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 7,
+                attributes: {
+                    title: 'Magic Keyboard',
+                    description: 'Беспроводная клавиатура с подсветкой и Touch ID',
+                    price: '12 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 8,
+                attributes: {
+                    title: 'Magic Mouse',
+                    description: 'Беспроводная мышь с Multi-Touch поверхностью',
+                    price: '8 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 9,
+                attributes: {
+                    title: 'AirTag',
+                    description: 'Трекер для поиска потерянных вещей с точностью до сантиметра',
+                    price: '3 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 10,
+                attributes: {
+                    title: 'HomePod mini',
+                    description: 'Умная колонка с пространственным звуком и Siri',
+                    price: '9 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 11,
+                attributes: {
+                    title: 'Apple TV 4K',
+                    description: 'Медиаплеер с поддержкой 4K и Dolby Atmos',
+                    price: '19 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                id: 12,
+                attributes: {
+                    title: 'Magic Trackpad',
+                    description: 'Беспроводной трекпад с Multi-Touch жестами',
+                    price: '10 990',
+                    cover: {
+                        data: {
+                            attributes: {
+                                url: 'https://aquaelle.ru/_sh/22/2285.jpg'
+                            }
+                        }
+                    }
+                }
+            }
+        ];
+        // const res = await $fetch('https://static.dublecode.ru/api/products?populate=*');
+        // if (res.data) {
+        //     products.value = res.data;
+        // }
+    } catch (error) {
+        console.error('Ошибка при загрузке товаров:', error);
+    } finally {
+        index.loader = false;
+    }
+}
 
-const openModal = () => {
-    isModalOpen.value = true; // Открыть модальное окно
-};
+const selectProduct = (product) => {
+    selectedProduct.value = product;
+    isModalOpen.value = true;
+}
 
 const closeModal = () => {
-    isModalOpen.value = false; // Закрыть модальное окно
-};
+    isModalOpen.value = false;
+    selectedProduct.value = null;
+}
 
-const selectPost = (post) => {
-    selectedPost.value = post; // Установить выбранный пост
-    openModal(); // Открыть модальное окно после выбора поста
-};
+// SEO
+const seo = ref({
+    title: 'Магазин',
+    description: 'Магазин товаров',
+    keywords: 'магазин, товары, покупки',
+    ogTitle: 'Магазин',
+    ogDescription: 'Магазин товаров',
+    ogImage: 'https://static.dublecode.ru/uploads/shop_og_image.jpg',
+    twitterTitle: 'Магазин',
+    twitterDescription: 'Магазин товаров',
+    twitterImage: 'https://static.dublecode.ru/uploads/shop_twitter_image.jpg'
+});
 
-// Пример данных для постов (12 товаров)
-const posts = ref([
-    { id: 1, title: 'Товар 1', slug: 'product-1', category: { slug: 'category-1' }, cover: { url: '/path/to/image1.jpg', alternativeText: 'Товар 1' } },
-    { id: 2, title: 'Товар 2', slug: 'product-2', category: { slug: 'category-2' }, cover: { url: '/path/to/image2.jpg', alternativeText: 'Товар 2' } },
-    { id: 3, title: 'Товар 3', slug: 'product-3', category: { slug: 'category-3' }, cover: { url: '/path/to/image3.jpg', alternativeText: 'Товар 3' } },
-    { id: 4, title: 'Товар 4', slug: 'product-4', category: { slug: 'category-4' }, cover: { url: '/path/to/image4.jpg', alternativeText: 'Товар 4' } },
-    { id: 5, title: 'Товар 5', slug: 'product-5', category: { slug: 'category-5' }, cover: { url: '/path/to/image5.jpg', alternativeText: 'Товар 5' } },
-    { id: 6, title: 'Товар 6', slug: 'product-6', category: { slug: 'category-6' }, cover: { url: '/path/to/image6.jpg', alternativeText: 'Товар 6' } },
-    { id: 7, title: 'Товар 7', slug: 'product-7', category: { slug: 'category-7' }, cover: { url: '/path/to/image7.jpg', alternativeText: 'Товар 7' } },
-    { id: 8, title: 'Товар 8', slug: 'product-8', category: { slug: 'category-8' }, cover: { url: '/path/to/image8.jpg', alternativeText: 'Товар 8' } },
-    { id: 9, title: 'Товар 9', slug: 'product-9', category: { slug: 'category-9' }, cover: { url: '/path/to/image9.jpg', alternativeText: 'Товар 9' } },
-    { id: 10, title: 'Товар 10', slug: 'product-10', category: { slug: 'category-10' }, cover: { url: '/path/to/image10.jpg', alternativeText: 'Товар 10' } },
-    { id: 11, title: 'Товар 11', slug: 'product-11', category: { slug: 'category-11' }, cover: { url: '/path/to/image11.jpg', alternativeText: 'Товар 11' } },
-    { id: 12, title: 'Товар 12', slug: 'product-12', category: { slug: 'category-12' }, cover: { url: '/path/to/image12.jpg', alternativeText: 'Товар 12' } },
-]);
+useHead({
+    title: seo.value.title,
+    meta: [
+        { name: 'description', content: seo.value.description },
+        { name: 'keywords', content: seo.value.keywords },
+        { property: 'og:title', content: seo.value.ogTitle },
+        { property: 'og:description', content: seo.value.ogDescription },
+        { property: 'og:image', content: seo.value.ogImage },
+        { name: 'twitter:title', content: seo.value.twitterTitle },
+        { name: 'twitter:description', content: seo.value.twitterDescription },
+        { name: 'twitter:image', content: seo.value.twitterImage }
+    ]
+})
 
-// Пример открытия модального окна при загрузке страницы
-openModal();
+onMounted(() => fetchProducts())
 </script>
