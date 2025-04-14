@@ -2,9 +2,18 @@
   <div class="flex flex-col gap-6">
     <section>
       <swiper-container ref="containerRef">
-        <swiper-slide><img class="h-40 w-full object-cover" src="https://avatars.mds.yandex.net/i?id=9871bb490e49701860b34a4f5834bd2e_l-8176266-images-thumbs&n=13"></swiper-slide>
-        <swiper-slide><img class="h-40 w-full object-cover" src="https://cs13.pikabu.ru/post_img/2023/02/11/8/og_og_167612238721281779.jpg"></swiper-slide>
-        <swiper-slide><img class="h-40 w-full object-cover" src="https://i.pinimg.com/originals/c5/2f/b0/c52fb0e9de148e812c542414ee46206e.jpg"></swiper-slide>
+        <swiper-slide>
+          <img class="h-40 w-full object-cover"
+               src="https://avatars.mds.yandex.net/i?id=9871bb490e49701860b34a4f5834bd2e_l-8176266-images-thumbs&n=13">
+        </swiper-slide>
+        <swiper-slide>
+          <img class="h-40 w-full object-cover"
+               src="https://cs13.pikabu.ru/post_img/2023/02/11/8/og_og_167612238721281779.jpg">
+        </swiper-slide>
+        <swiper-slide>
+          <img class="h-40 w-full object-cover"
+               src="https://i.pinimg.com/originals/c5/2f/b0/c52fb0e9de148e812c542414ee46206e.jpg">
+        </swiper-slide>
     </swiper-container>
     </section>
 

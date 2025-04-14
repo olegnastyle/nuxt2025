@@ -51,6 +51,8 @@ const body = ref('');
 // Следим за изменениями в объекте post и преобразуем Markdown в HTML
 watch(() => post.value, (newPost) => {
     if (newPost && newPost && newPost.body) {
+        console.log(newPost);
+        
         body.value = md.render(newPost.body);
     } else {
         console.error('Неверная структура данных поста:', newPost);
