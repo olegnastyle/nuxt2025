@@ -1,18 +1,13 @@
 <template>
   <div class="flex flex-col gap-6">
-    <!-- <section>
-      <swiper
-        :slides-per-view="3"
-        :space-between="50"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
-      >
-        <swiper-slide>Slide 1</swiper-slide>
-        <swiper-slide>Slide 2</swiper-slide>
-        <swiper-slide>Slide 3</swiper-slide>
-        ...
-      </swiper>
-    </section> -->
+    <section>
+      <swiper-container ref="containerRef">
+        <swiper-slide><img class="h-40 w-full object-cover" src="https://avatars.mds.yandex.net/i?id=9871bb490e49701860b34a4f5834bd2e_l-8176266-images-thumbs&n=13"></swiper-slide>
+        <swiper-slide><img class="h-40 w-full object-cover" src="https://cs13.pikabu.ru/post_img/2023/02/11/8/og_og_167612238721281779.jpg"></swiper-slide>
+        <swiper-slide><img class="h-40 w-full object-cover" src="https://i.pinimg.com/originals/c5/2f/b0/c52fb0e9de148e812c542414ee46206e.jpg"></swiper-slide>
+    </swiper-container>
+    </section>
+
     <section v-if="false" :class="'order-1'">
       <div class="relative overflow-hidden">
         <div class="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">
@@ -171,7 +166,11 @@
   </div>
 </template>
 
+
+
 <script setup>
+
+
 const posts = ref([])
 const index = useIndexStore();
 

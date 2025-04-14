@@ -2,12 +2,12 @@
   <!-- Контейнер для содержимого статьи с максимальной шириной и центрированием -->
   <div class="max-w-3xl mx-auto text-black dark:text-white">
       <!-- Заголовок статьи с безопасным доступом к свойству title -->
-      <h1 class="text-4xl font-medium my-2">{{ post?.attributes?.title }}</h1>
+      <h1 class="text-4xl font-medium my-2">{{ post?.title }}</h1>
       <!-- Информация о статье: время чтения, просмотры, дата публикации -->
       <p v-if="post" class="opacity-50 my-1.5">
-          <span>{{ post.attributes?.body ? calculateReadingTime(post.attributes.body) : 0 }}</span> •
-          <span v-html="post.attributes?.views || 0"></span>
-          прочитано • {{ convertDatetime(post.attributes?.publishedAt) }}</p>
+          <span>{{ post?.body ? calculateReadingTime(post?.body) : 0 }}</span> •
+          <span v-html="post?.views || 0"></span>
+          прочитано • {{ convertDatetime(post?.publishedAt) }}</p>
       <!-- Содержимое статьи в формате Markdown, преобразованное в HTML -->
       <div class="markdown my-1.5" v-html="body" ref="markdownContainer"></div>
   </div>
@@ -50,10 +50,13 @@ const body = ref('');
 
 // Следим за изменениями в объекте post и преобразуем Markdown в HTML
 watch(() => post.value, (newPost) => {
-  if (newPost && newPost.attributes?.body) {
-    body.value = md.render(newPost.attributes.body);
-  }
+    if (newPost && newPost && newPost.body) {
+        body.value = md.render(newPost.body);
+    } else {
+        console.error('Неверная структура данных поста:', newPost);
+    }
 }, { immediate: true });
+
 
 // Создаем реактивную переменную для хранения SEO-данных
 const seo = ref({});
@@ -67,6 +70,7 @@ const fetch = async () => {
       // Включаем индикатор загрузки
       index.loader = true;
       // Запрашиваем данные статьи с сервера
+    //   const res = await $fetch(`https://static.dublecode.ru/api/posts?filters[slug][$eqi]=${id}&filters[categories][slug][$eqi]=${category}&populate=*`);
       const res = await $fetch(`https://static.dublecode.ru/api/posts?filters[slug][$eqi]=${id}&filters[categories][slug][$eqi]=${category}&populate=*`);
       console.log('Ответ API:', res);
       
@@ -78,12 +82,12 @@ const fetch = async () => {
               // Обновляем счетчик просмотров
               updateViews(post.value.id);
               // Сохраняем SEO-данные
-              seo.value = post.value.attributes?.seo || {};
+              seo.value = post.value.seo || {};
               // Устанавливаем SEO-метаданные для страницы
               useSeoMeta({
-                  title: `${seo.value.metaTitle || post.value.attributes?.title} | PlusPixel`,
+                  title: `${seo.value.metaTitle || post.value.title} | PlusPixel`,
                   description: seo.value.metaDescription || '',
-                  ogTitle: seo.value.metaTitle || post.value.attributes?.title,
+                  ogTitle: seo.value.metaTitle || post.value.title,
                   ogDescription: seo.value.metaDescription || '',
               });
           }
@@ -111,7 +115,7 @@ const updateViews = async (documentId) => {
           method: 'PUT',
           body: {
               data: {
-                  views: (post.value.attributes?.views || 0) + 1,
+                  views: (post.value.views || 0) + 1,
               },
           },
       });
