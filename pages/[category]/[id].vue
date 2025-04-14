@@ -9,7 +9,7 @@
           <span v-html="post?.views || 0"></span>
           прочитано • {{ convertDatetime(post?.publishedAt) }}</p>
       <!-- Содержимое статьи в формате Markdown, преобразованное в HTML -->
-      <div class="markdown my-1.5" v-html="body" ref="markdownContainer"></div>
+      <div v-if="body" class="markdown my-1.5" v-html="body" ref="markdownContainer"></div>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ const { category, id } = route.params
 console.log('Параметры маршрута:', { category, id })
 
 // Создаем реактивную переменную для хранения данных статьи
-const post = ref(null);
+const post = ref({});
 // Получаем доступ к хранилищу состояния
 const index = useIndexStore();
 
@@ -48,16 +48,7 @@ const md = markdownit();
 // Создаем реактивную переменную для хранения HTML-содержимого
 const body = ref('');
 
-// Следим за изменениями в объекте post и преобразуем Markdown в HTML
-watch(() => post.value, (newPost) => {
-    if (newPost && newPost && newPost.body) {
-        console.log(newPost);
-        
-        body.value = md.render(newPost.body);
-    } else {
-        console.error('Неверная структура данных поста:', newPost);
-    }
-}, { immediate: true });
+
 
 
 // Создаем реактивную переменную для хранения SEO-данных
@@ -103,6 +94,15 @@ const fetch = async () => {
       index.loader = false;
   }
 };
+
+// Следим за изменениями в объекте post и преобразуем Markdown в HTML
+watch(() => post.value, (newPost) => {
+    if (newPost && newPost.body) {
+        body.value = md.render(newPost.body);
+    } else {
+        console.error('Неверная структура данных поста:', newPost);
+    }
+}, { immediate: true });
 
 /**
  * Обновляет счетчик просмотров статьи на сервере
@@ -228,7 +228,8 @@ onMounted(() => {
 });
 
 // При размонтировании компонента
-onUnmounted(() => {
+onUnmounted(async ()  => {
+    await fetch();
   // Удаляем обработчик кликов
   document.removeEventListener('click', handleDocumentClick);
   // Отключаем наблюдатель
