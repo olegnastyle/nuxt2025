@@ -33,35 +33,182 @@
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                 <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
                 <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                <div class="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-2xl dark:bg-gray-800">
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 dark:bg-gray-800">
-                        <div class="sm:flex sm:items-start">
-                            <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                                <!-- Слайдер изображений -->
-                                <div class="relative mb-4">
-                                    <swiper-container ref="containerRef" class="w-full h-64">
-                                        <swiper-slide v-for="(image, index) in [selectedProduct.cover, ...selectedProduct.images]" :key="index"
-                                            class="w-full h-full flex justify-center items-center"
-                                        >
-                                            <img :src="`https://static.dublecode.ru${image.formats.medium.url}`" 
-                                                 :alt="selectedProduct.name" 
-                                                 class="w-full h-full object-cover rounded-lg">
-                                        </swiper-slide>
-                                    </swiper-container>
-                                    <div class="absolute top-2 right-2 bg-[brown]/80 text-white px-3 py-1 rounded text-lg">
-                                        {{ selectedProduct.price }} ₽
+                <div class="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle container dark:bg-gray-800">
+                    <div class="bg-white dark:bg-gray-800">
+                        <div class="pt-6">
+                            <!-- Хлебные крошки -->
+                            <nav aria-label="Breadcrumb">
+                                <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                                    <li>
+                                        <div class="flex items-center">
+                                            <a href="/" class="mr-2 text-sm font-medium text-gray-900 dark:text-white">Главная</a>
+                                            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
+                                                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                                            </svg>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <a href="/shop" class="mr-2 text-sm font-medium text-gray-900 dark:text-white">Магазин</a>
+                                            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
+                                                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                                            </svg>
+                                        </div>
+                                    </li>
+                                    <li class="text-sm">
+                                        <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300">{{ selectedProduct.name }}</a>
+                                    </li>
+                                </ol>
+                            </nav>
+
+                            <!-- Галерея изображений -->
+                            <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+                                <img v-if="selectedProduct.cover" 
+                                     :src="`https://static.dublecode.ru${selectedProduct.cover.formats.medium.url}`" 
+                                     :alt="selectedProduct.name" 
+                                     class="hidden size-full rounded-lg object-cover lg:block">
+                                <div v-if="selectedProduct.images && selectedProduct.images.length > 0" class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+                                    <img v-for="(image, index) in selectedProduct.images.slice(0, 2)" 
+                                         :key="index"
+                                         :src="`https://static.dublecode.ru${image.formats.medium.url}`" 
+                                         :alt="`${selectedProduct.name} - изображение ${index + 1}`" 
+                                         class="aspect-3/2 w-full rounded-lg object-cover">
+                                </div>
+                                <img v-if="selectedProduct.cover" 
+                                     :src="`https://static.dublecode.ru${selectedProduct.cover.formats.medium.url}`" 
+                                     :alt="selectedProduct.name" 
+                                     class="aspect-4/5 size-full object-cover sm:rounded-lg lg:aspect-auto">
+                            </div>
+
+                            <!-- Информация о товаре -->
+                            <div class="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
+                                <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                                    <h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-3xl">{{ selectedProduct.name }}</h1>
+                                </div>
+
+                                <!-- Опции -->
+                                <div class="mt-4 lg:row-span-3 lg:mt-0">
+                                    <h2 class="sr-only">Информация о товаре</h2>
+                                    <p class="text-3xl tracking-tight text-gray-900 dark:text-white">{{ selectedProduct.price }} ₽</p>
+
+                                    <!-- Отзывы -->
+                                    <div class="mt-6">
+                                        <h3 class="sr-only">Отзывы</h3>
+                                        <div class="flex items-center">
+                                            <div class="flex items-center">
+                                                <svg class="size-5 shrink-0 text-gray-900 dark:text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
+                                                </svg>
+                                                <svg class="size-5 shrink-0 text-gray-900 dark:text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
+                                                </svg>
+                                                <svg class="size-5 shrink-0 text-gray-900 dark:text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
+                                                </svg>
+                                                <svg class="size-5 shrink-0 text-gray-900 dark:text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
+                                                </svg>
+                                                <svg class="size-5 shrink-0 text-gray-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            <p class="sr-only">4 из 5 звезд</p>
+                                            <a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">117 отзывов</a>
+                                        </div>
                                     </div>
+
+                                    <form class="mt-10">
+                                        <!-- Цвета -->
+                                        <div>
+                                            <h3 class="text-sm font-medium text-gray-900 dark:text-white">Цвет</h3>
+
+                                            <fieldset aria-label="Выберите цвет" class="mt-4">
+                                                <div class="flex items-center gap-x-3">
+                                                    <label aria-label="Белый" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-hidden">
+                                                        <input type="radio" name="color-choice" value="White" class="sr-only">
+                                                        <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-white"></span>
+                                                    </label>
+                                                    <label aria-label="Серый" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-hidden">
+                                                        <input type="radio" name="color-choice" value="Gray" class="sr-only">
+                                                        <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-gray-200"></span>
+                                                    </label>
+                                                    <label aria-label="Черный" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-900 focus:outline-hidden">
+                                                        <input type="radio" name="color-choice" value="Black" class="sr-only">
+                                                        <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-gray-900"></span>
+                                                    </label>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                        <!-- Размеры -->
+                                        <div class="mt-10">
+                                            <div class="flex items-center justify-between">
+                                                <h3 class="text-sm font-medium text-gray-900 dark:text-white">Размер</h3>
+                                                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">Таблица размеров</a>
+                                            </div>
+
+                                            <fieldset aria-label="Выберите размер" class="mt-4">
+                                                <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                                                    <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium text-gray-900 uppercase shadow-xs hover:bg-gray-50 focus:outline-hidden sm:flex-1 sm:py-6 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
+                                                        <input type="radio" name="size-choice" value="S" class="sr-only">
+                                                        <span>S</span>
+                                                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                                                    </label>
+                                                    <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium text-gray-900 uppercase shadow-xs hover:bg-gray-50 focus:outline-hidden sm:flex-1 sm:py-6 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
+                                                        <input type="radio" name="size-choice" value="M" class="sr-only">
+                                                        <span>M</span>
+                                                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                                                    </label>
+                                                    <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium text-gray-900 uppercase shadow-xs hover:bg-gray-50 focus:outline-hidden sm:flex-1 sm:py-6 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
+                                                        <input type="radio" name="size-choice" value="L" class="sr-only">
+                                                        <span>L</span>
+                                                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                                                    </label>
+                                                    <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium text-gray-900 uppercase shadow-xs hover:bg-gray-50 focus:outline-hidden sm:flex-1 sm:py-6 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700">
+                                                        <input type="radio" name="size-choice" value="XL" class="sr-only">
+                                                        <span>XL</span>
+                                                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                                                    </label>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                        <button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-[brown]/80 px-8 py-3 text-base font-medium text-white hover:bg-[brown] focus:ring-2 focus:ring-[brown] focus:ring-offset-2 focus:outline-hidden">Добавить в корзину</button>
+                                    </form>
                                 </div>
-                                <h3 class="text-2xl leading-6 font-medium text-gray-900 dark:text-white mb-2">
-                                    {{ selectedProduct.name }}
-                                </h3>
-                                <div class="mt-2 prose dark:prose-invert max-w-none">
-                                    <div v-html="descriptionHtml" class="text-sm text-gray-500 dark:text-gray-400"></div>
-                                </div>
-                                <div class="mt-4">
-                                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[brown]/80 text-base font-medium text-white hover:bg-[brown] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 sm:text-sm">
-                                        Купить
-                                    </button>
+
+                                <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pr-8 lg:pb-16 dark:border-gray-700">
+                                    <!-- Описание и детали -->
+                                    <div>
+                                        <h3 class="sr-only">Описание</h3>
+
+                                        <div class="space-y-6">
+                                            <div class="prose dark:prose-invert max-w-none">
+                                                <div v-html="descriptionHtml" class="text-base text-gray-900 dark:text-white"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-10">
+                                        <h3 class="text-sm font-medium text-gray-900 dark:text-white">Особенности</h3>
+
+                                        <div class="mt-4">
+                                            <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
+                                                <li class="text-gray-400"><span class="text-gray-600 dark:text-gray-300">Высокое качество материалов</span></li>
+                                                <li class="text-gray-400"><span class="text-gray-600 dark:text-gray-300">Долговечность и надежность</span></li>
+                                                <li class="text-gray-400"><span class="text-gray-600 dark:text-gray-300">Современный дизайн</span></li>
+                                                <li class="text-gray-400"><span class="text-gray-600 dark:text-gray-300">Удобство в использовании</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-10">
+                                        <h2 class="text-sm font-medium text-gray-900 dark:text-white">Детали</h2>
+
+                                        <div class="mt-4 space-y-6">
+                                            <p class="text-sm text-gray-600 dark:text-gray-300">Товар поставляется с полной гарантией качества. При возникновении вопросов, пожалуйста, свяжитесь с нашей службой поддержки.</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
