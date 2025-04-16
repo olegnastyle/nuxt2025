@@ -1,5 +1,5 @@
 <template>
-    <article v-for="post in posts" :key="post.id" class="max-w-sm bg-white border border-gray-200 hover:border-blue-500 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 transition-colors">
+    <article class="max-w-sm bg-white border border-gray-200 hover:border-blue-500 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 transition-colors">
         <NuxtLink :to="`/${post.categories[0]?.slug}/${post.slug}`">
             <img class="rounded-t-lg h-44 w-full object-cover" :src="'https://static.dublecode.ru'+post.cover.url" :alt="post.cover.alternativeText" :title="post.cover.caption" />
         </NuxtLink>
@@ -18,3 +18,9 @@
         </div>
     </article>
 </template>
+
+<script setup>
+const props = defineProps({
+    post: Object
+})
+</script>

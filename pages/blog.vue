@@ -1,7 +1,7 @@
 <template>
     <h1 class="my-4 text-2xl text-cyan-700 darl:blue-500 font-medium">Блог</h1>
     <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <UiArticle />
+        <UiArticle v-for="post in posts" :key="post.id" :post="post" />
     </div>
 </template>
 
